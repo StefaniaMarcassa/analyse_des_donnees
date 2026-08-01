@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ECON XXX — Course Title</title>
+<meta name="description" content="Course page: slides, notebooks, data and assignments.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+<!-- ==========================================================================
+     EVERYTHING YOU EDIT IS IN THE CODE BLOCK AT THE BOTTOM OF THIS FILE.
+     You do not need to touch the HTML or CSS to run the course.
+     ========================================================================== -->
+
+<style>
+  :root{
+    --paper:#EEF1F6;
+    --card:#FFFFFF;
+    --ink:#0F1A2E;
+    --ink-soft:#55637C;
+    --rule:#D2D9E4;
+    --now:#0C6E5C;
+    --now-wash:#E2F0EC;
+    --due:#9E2318;
+    --due-wash:#FBEAE7;
+
+    --sans:"Archivo",system-ui,sans-serif;
+    --serif:"Source Serif 4",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+
+    --gap:clamp(1.25rem,3vw,2rem);
+    --rail:2px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+
+  html{-webkit-text-size-adjust:100%}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:clamp(1rem,0.97rem + 0.15vw,1.0625rem);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:64rem;margin:0 auto;padding:0 var(--gap)}
+
+  a{color:inherit}
+  a:focus-visible,button:focus-visible{
+    outline:2px solid var(--now);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:0.11em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(1.5rem,3vw,2.5rem)}
+
+  .masthead h1{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:clamp(2rem,1.3rem + 3.4vw,3.5rem);
+    letter-spacing:-0.032em;
+    line-height:1.02;
+    margin:0.55rem 0 0;
+    max-width:20ch;
+  }
+
+  .facts{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.4rem 2rem;
+    margin:1.5rem 0 0;
+    padding:0;
+    list-style:none;
+    font-family:var(--mono);
+    font-size:0.8rem;
+    color:var(--ink-soft);
+  }
+  .facts b{
+    display:block;
+    font-weight:500;
+    font-size:0.66rem;
+    letter-spacing:0.11em;
+    text-transform:uppercase;
+    color:var(--ink);
+    opacity:0.45;
+    margin-bottom:0.15rem;
+  }
+
+  /* ---------- status banner (the "where are we" element) ---------- */
+  .status{
+    background:var(--card);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--now);
+    padding:1.15rem 1.35rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:0.35rem 1.5rem;
+  }
+  .status.is-pre{border-left-color:var(--ink-soft)}
+  .status-main{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:1.05rem;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .status-sub{margin:0;color:var(--ink-soft);font-size:0.95rem}
+  .status-sub .due-in{color:var(--due);font-weight:600}
+
+  /* ---------- sections ---------- */
+  section{padding:clamp(2.75rem,6vw,4.25rem) 0}
+  section + section{border-top:1px solid var(--rule)}
+
+  h2{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:1.5rem;
+    letter-spacing:-0.02em;
+    margin:0.4rem 0 1.75rem;
+  }
+
+  .lede{max-width:62ch;color:var(--ink-soft);margin:-1rem 0 2rem}
+
+  /* ---------- schedule ---------- */
+  .schedule{list-style:none;margin:0;padding:0;position:relative}
+  .schedule::before{
+    content:"";
+    position:absolute;
+    left:calc(2.25rem - var(--rail)/2);
+    top:0.7rem;bottom:0.7rem;
+    width:var(--rail);
+    background:var(--rule);
+  }
+
+  .week{
+    position:relative;
+    display:grid;
+    grid-template-columns:4.5rem 1fr;
+    gap:0 1.5rem;
+    padding:0 0 1.75rem;
+  }
+  .week:last-child{padding-bottom:0}
+
+  .week-mark{
+    position:relative;
+    z-index:1;
+    grid-column:1;
+    font-family:var(--mono);
+    font-size:0.72rem;
+    color:var(--ink-soft);
+    text-align:center;
+    padding-top:0.15rem;
+  }
+  .week-dot{
+    display:block;
+    width:0.7rem;height:0.7rem;
+    margin:0.35rem auto 0.5rem;
+    border-radius:50%;
+    background:var(--paper);
+    box-shadow:0 0 0 var(--rail) var(--rule) inset, 0 0 0 4px var(--paper);
+  }
+
+  .week-body{
+    grid-column:2;
+    background:var(--card);
+    border:1px solid var(--rule);
+    padding:1.15rem 1.3rem;
+  }
+
+  .week h3{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:1.12rem;
+    letter-spacing:-0.012em;
+    margin:0;
+  }
+  .week p{margin:0.45rem 0 0;color:var(--ink-soft);max-width:60ch}
+
+  .week-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.5rem;
+    margin-top:0.95rem;
+  }
+  .week-links a{
+    font-family:var(--mono);
+    font-size:0.74rem;
+    text-decoration:none;
+    padding:0.32rem 0.6rem;
+    border:1px solid var(--rule);
+    color:var(--ink);
+    transition:background 0.14s ease,border-color 0.14s ease;
+  }
+  .week-links a:hover{background:var(--ink);border-color:var(--ink);color:var(--card)}
+
+  /* current week */
+  .week.is-now .week-dot{
+    background:var(--now);
+    box-shadow:0 0 0 var(--rail) var(--now) inset, 0 0 0 4px var(--paper);
+  }
+  .week.is-now .week-mark{color:var(--now)}
+  .week.is-now .week-body{
+    border-color:var(--now);
+    background:var(--now-wash);
+  }
+  .now-tag{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:0.6rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--now);
+    margin-bottom:0.4rem;
+  }
+
+  .week.is-past .week-body{opacity:0.62}
+  .week.is-past:hover .week-body{opacity:1}
+
+  /* ---------- assignments ---------- */
+  .assignments{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
+  .assignment{
+    background:var(--card);
+    border:1px solid var(--rule);
+    padding:1.2rem 1.35rem;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:0.5rem 1.5rem;
+    align-items:start;
+  }
+  .assignment h3{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:1.08rem;
+    margin:0;
+    letter-spacing:-0.012em;
+  }
+  .assignment p{margin:0.4rem 0 0;color:var(--ink-soft);max-width:58ch}
+  .assignment-due{
+    grid-column:1;
+    font-family:var(--mono);
+    font-size:0.74rem;
+    color:var(--due);
+    margin-top:0.7rem;
+  }
+  .assignment-due.is-closed{color:var(--ink-soft)}
+  .btn{
+    grid-column:2;
+    grid-row:1 / span 3;
+    align-self:center;
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:0.85rem;
+    text-decoration:none;
+    padding:0.55rem 1.05rem;
+    background:var(--ink);
+    color:var(--card);
+    white-space:nowrap;
+    transition:background 0.14s ease;
+  }
+  .btn:hover{background:var(--now)}
+  .btn[aria-disabled="true"]{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1px solid var(--rule);
+    pointer-events:none;
+  }
+
+  /* ---------- prose blocks ---------- */
+  .cols{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr))}
+  .cols h3{font-family:var(--sans);font-weight:600;font-size:1rem;margin:0 0 0.5rem;letter-spacing:-0.01em}
+  .cols p{margin:0 0 0.75rem;color:var(--ink-soft)}
+  .cols code{font-family:var(--mono);font-size:0.85em;background:var(--card);padding:0.1em 0.35em;border:1px solid var(--rule)}
+  .cols a{color:var(--now);text-underline-offset:0.15em}
+
+  footer{
+    border-top:1px solid var(--rule);
+    padding:2rem 0 3rem;
+    font-family:var(--mono);
+    font-size:0.74rem;
+    color:var(--ink-soft);
+  }
+  footer a{color:inherit}
+
+  /* ---------- small screens ---------- */
+  @media (max-width:34rem){
+    .schedule::before{left:calc(1.4rem - var(--rail)/2)}
+    .week{grid-template-columns:2.8rem 1fr;gap:0 0.9rem}
+    .week-mark{font-size:0.65rem}
+    .assignment{grid-template-columns:1fr}
+    .btn{grid-column:1;grid-row:auto;justify-self:start;margin-top:0.5rem}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;animation:none !important}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow" id="course-code">ECON XXX</p>
+    <h1 id="course-title">Course title</h1>
+    <ul class="facts" id="course-facts"></ul>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="status" id="status" role="status">
+    <p class="status-main" id="status-main">Loading…</p>
+    <p class="status-sub" id="status-sub"></p>
+  </div>
+</div>
+
+<main>
+  <section id="schedule-section">
+    <div class="wrap">
+      <h2>Schedule</h2>
+      <ol class="schedule" id="schedule"></ol>
+    </div>
+  </section>
+
+  <section id="assignments-section">
+    <div class="wrap">
+      <h2>Assignments</h2>
+      <p class="lede">Each link creates a private repository for you on GitHub. Work in it,
+      commit, and push before the deadline. Pushing is submitting — there is nothing else to hand in.</p>
+      <ol class="assignments" id="assignments"></ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Practical information</h2>
+      <div class="cols" id="practical"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p id="footer-line"></p>
+  </div>
+</footer>
+
+<!-- ==========================================================================
+     EDIT FROM HERE DOWN.
+
+     Three lists control the whole page: COURSE, SCHEDULE and ASSIGNMENTS.
+     Add a week by copying one { ... } block and changing what's inside.
+     Dates must be written as "YYYY-MM-DD" or the page cannot work out
+     which week is the current one.
+     ========================================================================== -->
+<script>
+/* -------------------------------------------------------------------------
+   1. COURSE DETAILS
+   ------------------------------------------------------------------------- */
+const REPO = "https://github.com/YOUR-ORG/course-materials";
+
+const COURSE = {
+  code:       "ECON XXX",
+  title:      "Course title",
+  repoUrl:    REPO,
+  facts: [
+    { label: "Lectures",     value: "Tue 10:00, Room A1" },
+    { label: "Labs",         value: "Thu 14:00, Lab 3" },
+    { label: "Office hours", value: "Wed 15:00–17:00" },
+    { label: "Contact",      value: "you@university.edu" }
+  ]
+};
+
+/* -------------------------------------------------------------------------
+   2. SCHEDULE
+   One block per week. `date` is the Monday of that teaching week.
+   `links` can be empty: []  — add them as material becomes available.
+
+   How to write hrefs:
+     PDFs        -> a plain relative path:  "slides/01-intro.pdf"
+     .md, .ipynb -> use REPO + "/blob/main/notebooks/02-data.ipynb"
+   GitHub Pages serves markdown and notebooks as raw text, which is unreadable.
+   The REPO link opens the same file on github.com, where both render properly.
+   ------------------------------------------------------------------------- */
+const SCHEDULE = [
+  {
+    week: 1,
+    date: "2026-09-14",
+    topic: "Introduction and setup",
+    summary: "What the course covers, how it is assessed, and getting Python running on your own machine.",
+    links: [
+      { label: "slides", href: "slides/01-intro.pdf" },
+      { label: "setup guide", href: REPO + "/blob/main/setup/installing-python.md" }
+    ]
+  },
+  {
+    week: 2,
+    date: "2026-09-21",
+    topic: "Working with data",
+    summary: "Reading files, inspecting what you have, and the habits that stop small mistakes becoming large ones.",
+    links: [
+      { label: "slides", href: "slides/02-data.pdf" },
+      { label: "notebook", href: REPO + "/blob/main/notebooks/02-data.ipynb" }
+    ]
+  },
+  {
+    week: 3,
+    date: "2026-09-28",
+    topic: "Describing a distribution",
+    summary: "Summary statistics, and what each one hides.",
+    links: []
+  },
+  {
+    week: 4,
+    date: "2026-10-05",
+    topic: "Topic to come",
+    summary: "",
+    links: []
+  }
+];
+
+/* -------------------------------------------------------------------------
+   3. ASSIGNMENTS
+   `invite` is the GitHub Classroom invitation link. Leave it as "" until
+   the assignment is ready — the button then shows as "Not open yet".
+   `due` is "YYYY-MM-DDTHH:MM" in your local time.
+   ------------------------------------------------------------------------- */
+const ASSIGNMENTS = [
+  {
+    name: "Problem set 1",
+    due: "2026-10-05T23:59",
+    brief: "Growth rates, compound growth, and converting nominal series into real ones.",
+    invite: ""
+  },
+  {
+    name: "Problem set 2",
+    due: "2026-11-02T23:59",
+    brief: "To be announced.",
+    invite: ""
+  }
+];
+
+/* -------------------------------------------------------------------------
+   4. PRACTICAL INFORMATION
+   Plain text. Basic HTML such as <a href="...">links</a> and <code>code</code>
+   works inside the `body` strings.
+   ------------------------------------------------------------------------- */
+const PRACTICAL = [
+  {
+    heading: "Getting the materials",
+    body: `Everything on this page lives in
+      <a href="${REPO}">one repository</a>.
+      You can download individual files, but it is easier to clone it once and run
+      <code>git pull</code> before each lecture to get the latest version.`
+  },
+  {
+    heading: "Software",
+    body: `You need Python 3.12 or later. Follow the
+      <a href="${REPO}/blob/main/setup/installing-python.md">setup guide</a> before
+      the first lab — not during it. If you get stuck, post the exact error message in
+      <a href="${REPO}/issues">Issues</a>.`
+  },
+  {
+    heading: "Asking questions",
+    body: `Use Issues for anything about the code or the material: if one person is
+      stuck, several usually are, and the answer stays where everyone can find it.
+      Email me for anything personal — extensions, grades, illness.`
+  },
+  {
+    heading: "Assessment",
+    body: `Problem sets X%, midterm X%, final project X%. Details in the
+      <a href="${REPO}/blob/main/syllabus.md">syllabus</a>.`
+  }
+];
+
+/* =========================================================================
+   Below this line is the machinery that draws the page.
+   You should not need to change it.
+   ========================================================================= */
+(function () {
+  "use strict";
+
+  const DAY = 86400000;
+  const now = new Date();
+
+  const fmtDate = new Intl.DateTimeFormat(undefined, { day: "numeric", month: "short" });
+  const fmtDateTime = new Intl.DateTimeFormat(undefined, {
+    weekday: "short", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit"
+  });
+
+  function el(tag, className, html) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (html != null) node.innerHTML = html;
+    return node;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"]/g, c =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  }
+
+  function daysBetween(a, b) {
+    return Math.round((b - a) / DAY);
+  }
+
+  /* ---- masthead ---- */
+  document.title = COURSE.code + " — " + COURSE.title;
+  document.getElementById("course-code").textContent = COURSE.code;
+  document.getElementById("course-title").textContent = COURSE.title;
+
+  const factsEl = document.getElementById("course-facts");
+  COURSE.facts.forEach(f => {
+    factsEl.appendChild(el("li", null,
+      "<b>" + escapeHtml(f.label) + "</b>" + escapeHtml(f.value)));
+  });
+
+  /* ---- which week are we in? ---- */
+  const weeks = SCHEDULE.map(w => ({ ...w, start: new Date(w.date + "T00:00") }));
+  let currentIndex = -1;
+  weeks.forEach((w, i) => {
+    const next = weeks[i + 1] ? weeks[i + 1].start : new Date(w.start.getTime() + 7 * DAY);
+    if (now >= w.start && now < next) currentIndex = i;
+  });
+
+  /* ---- schedule ---- */
+  const scheduleEl = document.getElementById("schedule");
+  weeks.forEach((w, i) => {
+    const li = el("li", "week");
+    if (i === currentIndex) li.classList.add("is-now");
+    else if (currentIndex > -1 && i < currentIndex) li.classList.add("is-past");
+    else if (currentIndex === -1 && now > w.start) li.classList.add("is-past");
+
+    const mark = el("div", "week-mark",
+      "Week " + w.week + "<span class='week-dot'></span>" + fmtDate.format(w.start));
+    li.appendChild(mark);
+
+    const body = el("div", "week-body");
+    if (i === currentIndex) body.appendChild(el("span", "now-tag", "This week"));
+    body.appendChild(el("h3", null, escapeHtml(w.topic)));
+    if (w.summary) body.appendChild(el("p", null, escapeHtml(w.summary)));
+
+    if (w.links && w.links.length) {
+      const links = el("div", "week-links");
+      w.links.forEach(l => {
+        const a = el("a", null, escapeHtml(l.label));
+        a.href = l.href;
+        links.appendChild(a);
+      });
+      body.appendChild(links);
+    }
+    li.appendChild(body);
+    scheduleEl.appendChild(li);
+  });
+
+  /* ---- assignments ---- */
+  const assignmentsEl = document.getElementById("assignments");
+  const dated = ASSIGNMENTS.map(a => ({ ...a, dueDate: new Date(a.due) }));
+
+  dated.forEach(a => {
+    const li = el("li", "assignment");
+    li.appendChild(el("h3", null, escapeHtml(a.name)));
+    li.appendChild(el("p", null, escapeHtml(a.brief)));
+
+    const closed = a.dueDate < now;
+    const days = daysBetween(now, a.dueDate);
+    let dueText = "Due " + fmtDateTime.format(a.dueDate);
+    if (closed) dueText = "Closed — was due " + fmtDateTime.format(a.dueDate);
+    else if (days === 0) dueText += " · today";
+    else if (days === 1) dueText += " · tomorrow";
+    else if (days > 1) dueText += " · in " + days + " days";
+
+    const due = el("div", "assignment-due", dueText);
+    if (closed) due.classList.add("is-closed");
+    li.appendChild(due);
+
+    const btn = el("a", "btn");
+    if (a.invite && !closed) {
+      btn.href = a.invite;
+      btn.textContent = "Accept assignment";
+    } else {
+      btn.setAttribute("aria-disabled", "true");
+      btn.textContent = closed ? "Closed" : "Not open yet";
+    }
+    li.appendChild(btn);
+    assignmentsEl.appendChild(li);
+  });
+
+  /* ---- practical information ---- */
+  const practicalEl = document.getElementById("practical");
+  PRACTICAL.forEach(p => {
+    const div = el("div");
+    div.appendChild(el("h3", null, escapeHtml(p.heading)));
+    div.appendChild(el("p", null, p.body));
+    practicalEl.appendChild(div);
+  });
+
+  /* ---- status banner ---- */
+  const statusEl = document.getElementById("status");
+  const mainEl = document.getElementById("status-main");
+  const subEl = document.getElementById("status-sub");
+
+  if (currentIndex > -1) {
+    const w = weeks[currentIndex];
+    mainEl.textContent = "Week " + w.week + " — " + w.topic;
+  } else if (weeks.length && now < weeks[0].start) {
+    statusEl.classList.add("is-pre");
+    const d = daysBetween(now, weeks[0].start);
+    mainEl.textContent = "Teaching starts " + fmtDate.format(weeks[0].start);
+    subEl.innerHTML = d === 1 ? "Tomorrow." : "In " + d + " days.";
+  } else {
+    statusEl.classList.add("is-pre");
+    mainEl.textContent = "Teaching has finished for this term.";
+  }
+
+  const upcoming = dated
+    .filter(a => a.dueDate > now)
+    .sort((a, b) => a.dueDate - b.dueDate)[0];
+
+  if (upcoming && currentIndex > -1) {
+    const d = daysBetween(now, upcoming.dueDate);
+    const when = d === 0 ? "today" : d === 1 ? "tomorrow" : "in " + d + " days";
+    subEl.innerHTML = escapeHtml(upcoming.name) +
+      " due <span class='due-in'>" + when + "</span>";
+  }
+
+  /* ---- footer ---- */
+  document.getElementById("footer-line").innerHTML =
+    escapeHtml(COURSE.code) + " · Source and materials on " +
+    "<a href='" + COURSE.repoUrl + "'>GitHub</a> · Last updated " +
+    fmtDate.format(new Date(document.lastModified));
+})();
+</script>
+</body>
+</html>

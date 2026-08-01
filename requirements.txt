@@ -1,0 +1,9 @@
+# Packages used in lectures and labs.
+# Requires Python 3.12 or later (numpy 2.4+ dropped earlier versions).
+# Pinned below the next major version: patch and minor upgrades are safe
+# mid-semester, major ones are not.
+numpy>=2.4,<3
+pandas>=3.0,<4
+matplotlib>=3.10,<4
+statsmodels>=0.14,<1
+jupyter>=1.1
