@@ -620,8 +620,8 @@ const PRACTICAL = [
   } else if (weeks.length && now < weeks[0].start) {
     statusEl.classList.add("is-pre");
     const d = daysBetween(now, weeks[0].start);
-    mainEl.textContent = "Teaching starts " + fmtDate.format(weeks[0].start);
-    subEl.innerHTML = d === 1 ? "Tomorrow." : "In " + d + " days.";
+    mainEl.textContent = "Le cours débute le " + fmtDate.format(weeks[0].start);
+    subEl.innerHTML = d === 1 ? "Tomorrow." : "Dans " + d + " days.";
   } else {
     statusEl.classList.add("is-pre");
     mainEl.textContent = "Teaching has finished for this term.";
