@@ -559,7 +559,7 @@ const PRACTICAL = [
       Écrivez-moi directement pour tout ce qui est personnel — absence, délai, note.`
   },
   {
-    heading: "Assessment",
+    heading: "Évaluation",
     body: `Contrôle continu 50 %, contrôle terminal 50 %. Détails dans le
      <a href="${REPO}/blob/main/syllabus.md">syllabus</a>.`
   }
@@ -631,7 +631,6 @@ const PRACTICAL = [
     if (i === currentIndex) body.appendChild(el("span", "now-tag", "Cette semaine"));
     body.appendChild(el("h3", null, escapeHtml(w.topic)));
     if (w.summary) body.appendChild(el("p", null, escapeHtml(w.summary)));
-    if (w.td) body.appendChild(el("p", "week-td", "<b>Travaux dirigés</b>" + escapeHtml(w.td)));
 
     if (w.links && w.links.length) {
       const links = el("div", "week-links");
@@ -642,6 +641,8 @@ const PRACTICAL = [
       });
       body.appendChild(links);
     }
+
+    if (w.td) body.appendChild(el("p", "week-td", "<b>Travaux dirigés</b>" + escapeHtml(w.td)));
     li.appendChild(body);
     scheduleEl.appendChild(li);
   });
