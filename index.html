@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ECON XXX — Course Title</title>
-<meta name="description" content="Course page: slides, notebooks, data and assignments.">
+<title>L3 ECO — Analyse des données</title>
+<meta name="description" content="Page du cours : diapositives, notebooks, données et exercices.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 
 <!-- ==========================================================================
-     EVERYTHING YOU EDIT IS IN THE CODE BLOCK AT THE BOTTOM OF THIS FILE.
-     You do not need to touch the HTML or CSS to run the course.
+     TOUT CE QUI SE MODIFIE SE TROUVE DANS LE BLOC DE CODE EN BAS DE CE FICHIER.
+     Il n'est pas nécessaire de toucher au HTML ni au CSS pour faire vivre le cours.
      ========================================================================== -->
 
 <style>
@@ -66,7 +66,7 @@
     margin:0;
   }
 
-  /* ---------- masthead ---------- */
+  /* ---------- en-tête ---------- */
   .masthead{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(1.5rem,3vw,2.5rem)}
 
   .masthead h1{
@@ -101,7 +101,7 @@
     margin-bottom:0.15rem;
   }
 
-  /* ---------- status banner (the "where are we" element) ---------- */
+  /* ---------- bandeau de situation (« où en est-on ? ») ---------- */
   .status{
     background:var(--card);
     border:1px solid var(--rule);
@@ -137,7 +137,7 @@
 
   .lede{max-width:62ch;color:var(--ink-soft);margin:-1rem 0 2rem}
 
-  /* ---------- schedule ---------- */
+  /* ---------- calendrier ---------- */
   .schedule{list-style:none;margin:0;padding:0;position:relative}
   .schedule::before{
     content:"";
@@ -209,7 +209,7 @@
   }
   .week-links a:hover{background:var(--ink);border-color:var(--ink);color:var(--card)}
 
-  /* current week */
+  /* séance en cours */
   .week.is-now .week-dot{
     background:var(--now);
     box-shadow:0 0 0 var(--rail) var(--now) inset, 0 0 0 4px var(--paper);
@@ -232,7 +232,7 @@
   .week.is-past .week-body{opacity:0.62}
   .week.is-past:hover .week-body{opacity:1}
 
-  /* ---------- assignments ---------- */
+  /* ---------- exercices ---------- */
   .assignments{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
   .assignment{
     background:var(--card);
@@ -281,7 +281,7 @@
     pointer-events:none;
   }
 
-  /* ---------- prose blocks ---------- */
+  /* ---------- blocs de texte ---------- */
   .cols{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr))}
   .cols h3{font-family:var(--sans);font-weight:600;font-size:1rem;margin:0 0 0.5rem;letter-spacing:-0.01em}
   .cols p{margin:0 0 0.75rem;color:var(--ink-soft)}
@@ -297,7 +297,7 @@
   }
   footer a{color:inherit}
 
-  /* ---------- small screens ---------- */
+  /* ---------- petits écrans ---------- */
   @media (max-width:34rem){
     .schedule::before{left:calc(1.4rem - var(--rail)/2)}
     .week{grid-template-columns:2.8rem 1fr;gap:0 0.9rem}
@@ -315,15 +315,15 @@
 
 <header class="masthead">
   <div class="wrap">
-    <p class="eyebrow" id="course-code">ECON XXX</p>
-    <h1 id="course-title">Course title</h1>
+    <p class="eyebrow" id="course-code">L3 ECO</p>
+    <h1 id="course-title">Analyse des données</h1>
     <ul class="facts" id="course-facts"></ul>
   </div>
 </header>
 
 <div class="wrap">
   <div class="status" id="status" role="status">
-    <p class="status-main" id="status-main">Loading…</p>
+    <p class="status-main" id="status-main">Chargement…</p>
     <p class="status-sub" id="status-sub"></p>
   </div>
 </div>
@@ -331,23 +331,24 @@
 <main>
   <section id="schedule-section">
     <div class="wrap">
-      <h2>Schedule</h2>
+      <h2>Calendrier</h2>
       <ol class="schedule" id="schedule"></ol>
     </div>
   </section>
 
   <section id="assignments-section">
     <div class="wrap">
-      <h2>Assignments</h2>
-      <p class="lede">Each link creates a private repository for you on GitHub. Work in it,
-      commit, and push before the deadline. Pushing is submitting — there is nothing else to hand in.</p>
+      <h2>Exercices</h2>
+      <p class="lede">Les exercices hebdomadaires ne sont pas notés. Ils constituent la seule
+      préparation efficace aux deux épreuves : les questions de diagnostic du contrôle continu et du
+      contrôle terminal sont construites à partir des erreurs qui y reviennent le plus souvent.</p>
       <ol class="assignments" id="assignments"></ol>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <h2>Practical information</h2>
+      <h2>Informations pratiques</h2>
       <div class="cols" id="practical"></div>
     </div>
   </section>
@@ -360,16 +361,16 @@
 </footer>
 
 <!-- ==========================================================================
-     EDIT FROM HERE DOWN.
+     MODIFIER À PARTIR D'ICI.
 
-     Three lists control the whole page: COURSE, SCHEDULE and ASSIGNMENTS.
-     Add a week by copying one { ... } block and changing what's inside.
-     Dates must be written as "YYYY-MM-DD" or the page cannot work out
-     which week is the current one.
+     Quatre listes commandent toute la page : COURSE, SCHEDULE, ASSIGNMENTS
+     et PRACTICAL. Pour ajouter une séance, copier un bloc { ... } et en
+     changer le contenu. Les dates doivent s'écrire "AAAA-MM-JJ", faute de quoi
+     la page ne peut pas déterminer la séance en cours.
      ========================================================================== -->
 <script>
 /* -------------------------------------------------------------------------
-   1. COURSE DETAILS
+   1. INFORMATIONS SUR LE COURS
    ------------------------------------------------------------------------- */
 const REPO = "https://github.com/StefaniaMarcassa/analyse_des_donnees";
 
@@ -379,22 +380,23 @@ const COURSE = {
   repoUrl:    REPO,
   facts: [
     { label: "Cours",      value: "Lundis 13h45-15h15, Salle: CHE1 WALRAS" },
-    { label: "TD",         value: "TBA" },
+    { label: "TD",         value: "À préciser" },
     { label: "Permanence", value: "Exclusivement sur rendez-vous" },
     { label: "Contact",    value: "stefania.marcassa@cyu.fr" }
   ]
 };
 
 /* -------------------------------------------------------------------------
-   2. SCHEDULE
-   One block per week. `date` is the Monday of that teaching week.
-   `links` can be empty: []  — add them as material becomes available.
+   2. CALENDRIER
+   Un bloc par séance. `date` est le lundi de la semaine concernée.
+   `links` peut rester vide : []  — les ajouter à mesure que le matériel existe.
 
-   How to write hrefs:
-     PDFs        -> a plain relative path:  "slides/01-intro.pdf"
-     .md, .ipynb -> use REPO + "/blob/main/notebooks/02-data.ipynb"
-   GitHub Pages serves markdown and notebooks as raw text, which is unreadable.
-   The REPO link opens the same file on github.com, where both render properly.
+   Comment écrire les liens :
+     PDF          -> un chemin relatif simple :  "slides/01-intro.pdf"
+     .md, .ipynb  -> utiliser REPO + "/blob/main/notebooks/02-data.ipynb"
+   GitHub Pages sert les fichiers markdown et les notebooks en texte brut,
+   ce qui est illisible. Le lien REPO ouvre le même fichier sur github.com,
+   où l'un comme l'autre s'affichent correctement.
    ------------------------------------------------------------------------- */
 const SCHEDULE = [
   {
@@ -471,51 +473,54 @@ const SCHEDULE = [
 
 
 /* -------------------------------------------------------------------------
-   3. ASSIGNMENTS
-   `invite` is the GitHub Classroom invitation link. Leave it as "" until
-   the assignment is ready — the button then shows as "Not open yet".
-   `due` is "YYYY-MM-DDTHH:MM" in your local time.
+   3. EXERCICES
+   `invite` est le lien vers l'exercice (notebook, Colab ou GitHub Classroom).
+   Laisser "" tant que l'exercice n'est pas prêt : le bouton affiche alors
+   « Bientôt disponible ». `due` s'écrit "AAAA-MM-JJTHH:MM", en heure locale.
    ------------------------------------------------------------------------- */
 const ASSIGNMENTS = [
   {
-    name: "Problem set 1",
-    due: "2026-10-05T23:59",
-    brief: "Growth rates, compound growth, and converting nominal series into real ones.",
+    name: "Exercice 1 — Nettoyage",
+    due: "2026-09-20T23:59",
+    brief: "Valeurs manquantes, doublons et recodages sur un extrait de données de salaires.",
     invite: ""
   },
   {
-    name: "Problem set 2",
-    due: "2026-11-02T23:59",
-    brief: "To be announced.",
+    name: "Exercice 2 — Fusion et restructuration",
+    due: "2026-09-27T23:59",
+    brief: "À préciser.",
     invite: ""
   }
 ];
 
 /* -------------------------------------------------------------------------
-   4. PRACTICAL INFORMATION
-   Plain text. Basic HTML such as <a href="...">links</a> and <code>code</code>
-   works inside the `body` strings.
+   4. INFORMATIONS PRATIQUES
+   Texte simple. Le HTML de base — <a href="...">liens</a> et <code>code</code> —
+   fonctionne à l'intérieur des chaînes `body`.
    ------------------------------------------------------------------------- */
 const PRACTICAL = [
   {
-    heading: "Getting the materials",
-    body: `Everything on this page lives in
-      <a href="${REPO}">one repository</a>.
-      You can download individual files, but it is easier to clone it once and run
-      <code>git pull</code> before each lecture to get the latest version.`
+    heading: "Récupérer les supports",
+    body: `Tout ce qui figure sur cette page se trouve dans
+      <a href="${REPO}">un unique dépôt</a>.
+      Vous pouvez télécharger les fichiers un par un, mais il est plus simple de cloner
+      le dépôt une fois et de lancer <code>git pull</code> avant chaque séance pour
+      récupérer la dernière version.`
   },
   {
-    heading: "Software",
-    body: `You need Python 3.12 or later. Follow the
-      <a href="${REPO}/blob/main/setup/installing-python.md">setup guide</a> before
-      the first lab — not during it. If you get stuck, post the exact error message in
-      <a href="${REPO}/issues">Issues</a>.`
+    heading: "Environnement de travail",
+    body: `Tout le cours se fait sur
+      <a href="https://colab.research.google.com/">Google Colab</a>, dans le navigateur :
+      aucune installation, aucune version de Python à gérer. Un compte Google suffit.
+      Le travail en local est possible mais non assisté — les séances de TD ne sont pas
+      consacrées au dépannage d'installations.`
   },
   {
-    heading: "Asking questions",
-    body: `Use Issues for anything about the code or the material: if one person is
-      stuck, several usually are, and the answer stays where everyone can find it.
-      Email me for anything personal — extensions, grades, illness.`
+    heading: "Poser une question",
+    body: `Utilisez les <a href="${REPO}/issues">Issues</a> pour tout ce qui touche au code
+      ou au matériel : si une personne est bloquée, plusieurs le sont en général, et la réponse
+      reste là où chacun peut la retrouver. Indiquez toujours le message d'erreur complet.
+      Écrivez-moi directement pour tout ce qui est personnel — absence, délai, note.`
   },
   {
     heading: "Assessment",
@@ -525,8 +530,8 @@ const PRACTICAL = [
 ];
 
 /* =========================================================================
-   Below this line is the machinery that draws the page.
-   You should not need to change it.
+   Sous cette ligne se trouve la mécanique qui dessine la page.
+   Il ne devrait pas être nécessaire d'y toucher.
    ========================================================================= */
 (function () {
   "use strict";
@@ -534,8 +539,8 @@ const PRACTICAL = [
   const DAY = 86400000;
   const now = new Date();
 
-  const fmtDate = new Intl.DateTimeFormat(undefined, { day: "numeric", month: "short" });
-  const fmtDateTime = new Intl.DateTimeFormat(undefined, {
+  const fmtDate = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
+  const fmtDateTime = new Intl.DateTimeFormat("fr-FR", {
     weekday: "short", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit"
   });
 
@@ -555,7 +560,7 @@ const PRACTICAL = [
     return Math.round((b - a) / DAY);
   }
 
-  /* ---- masthead ---- */
+  /* ---- en-tête ---- */
   document.title = COURSE.code + " — " + COURSE.title;
   document.getElementById("course-code").textContent = COURSE.code;
   document.getElementById("course-title").textContent = COURSE.title;
@@ -566,7 +571,7 @@ const PRACTICAL = [
       "<b>" + escapeHtml(f.label) + "</b>" + escapeHtml(f.value)));
   });
 
-  /* ---- which week are we in? ---- */
+  /* ---- où en est-on dans le semestre ? ---- */
   const weeks = SCHEDULE.map(w => ({ ...w, start: new Date(w.date + "T00:00") }));
   let currentIndex = -1;
   weeks.forEach((w, i) => {
@@ -574,7 +579,7 @@ const PRACTICAL = [
     if (now >= w.start && now < next) currentIndex = i;
   });
 
-  /* ---- schedule ---- */
+  /* ---- calendrier ---- */
   const scheduleEl = document.getElementById("schedule");
   weeks.forEach((w, i) => {
     const li = el("li", "week");
@@ -583,11 +588,11 @@ const PRACTICAL = [
     else if (currentIndex === -1 && now > w.start) li.classList.add("is-past");
 
     const mark = el("div", "week-mark",
-      "Week " + w.week + "<span class='week-dot'></span>" + fmtDate.format(w.start));
+      "Séance " + w.week + "<span class='week-dot'></span>" + fmtDate.format(w.start));
     li.appendChild(mark);
 
     const body = el("div", "week-body");
-    if (i === currentIndex) body.appendChild(el("span", "now-tag", "This week"));
+    if (i === currentIndex) body.appendChild(el("span", "now-tag", "Cette semaine"));
     body.appendChild(el("h3", null, escapeHtml(w.topic)));
     if (w.summary) body.appendChild(el("p", null, escapeHtml(w.summary)));
 
@@ -604,7 +609,7 @@ const PRACTICAL = [
     scheduleEl.appendChild(li);
   });
 
-  /* ---- assignments ---- */
+  /* ---- exercices ---- */
   const assignmentsEl = document.getElementById("assignments");
   const dated = ASSIGNMENTS.map(a => ({ ...a, dueDate: new Date(a.due) }));
 
@@ -615,11 +620,11 @@ const PRACTICAL = [
 
     const closed = a.dueDate < now;
     const days = daysBetween(now, a.dueDate);
-    let dueText = "Due " + fmtDateTime.format(a.dueDate);
-    if (closed) dueText = "Closed — was due " + fmtDateTime.format(a.dueDate);
-    else if (days === 0) dueText += " · today";
-    else if (days === 1) dueText += " · tomorrow";
-    else if (days > 1) dueText += " · in " + days + " days";
+    let dueText = "À rendre le " + fmtDateTime.format(a.dueDate);
+    if (closed) dueText = "Clos — échéance du " + fmtDateTime.format(a.dueDate);
+    else if (days === 0) dueText += " · aujourd'hui";
+    else if (days === 1) dueText += " · demain";
+    else if (days > 1) dueText += " · dans " + days + " jours";
 
     const due = el("div", "assignment-due", dueText);
     if (closed) due.classList.add("is-closed");
@@ -628,16 +633,16 @@ const PRACTICAL = [
     const btn = el("a", "btn");
     if (a.invite && !closed) {
       btn.href = a.invite;
-      btn.textContent = "Accept assignment";
+      btn.textContent = "Ouvrir l'exercice";
     } else {
       btn.setAttribute("aria-disabled", "true");
-      btn.textContent = closed ? "Closed" : "Not open yet";
+      btn.textContent = closed ? "Clos" : "Bientôt disponible";
     }
     li.appendChild(btn);
     assignmentsEl.appendChild(li);
   });
 
-  /* ---- practical information ---- */
+  /* ---- informations pratiques ---- */
   const practicalEl = document.getElementById("practical");
   PRACTICAL.forEach(p => {
     const div = el("div");
@@ -646,22 +651,22 @@ const PRACTICAL = [
     practicalEl.appendChild(div);
   });
 
-  /* ---- status banner ---- */
+  /* ---- bandeau de situation ---- */
   const statusEl = document.getElementById("status");
   const mainEl = document.getElementById("status-main");
   const subEl = document.getElementById("status-sub");
 
   if (currentIndex > -1) {
     const w = weeks[currentIndex];
-    mainEl.textContent = "Week " + w.week + " — " + w.topic;
+    mainEl.textContent = "Séance " + w.week + " — " + w.topic;
   } else if (weeks.length && now < weeks[0].start) {
     statusEl.classList.add("is-pre");
     const d = daysBetween(now, weeks[0].start);
     mainEl.textContent = "Le cours débute le " + fmtDate.format(weeks[0].start);
-    subEl.innerHTML = d === 1 ? "Tomorrow." : "Dans " + d + " days.";
+    subEl.innerHTML = d === 1 ? "Demain." : "Dans " + d + " jours.";
   } else {
     statusEl.classList.add("is-pre");
-    mainEl.textContent = "Teaching has finished for this term.";
+    mainEl.textContent = "Les enseignements du semestre sont terminés.";
   }
 
   const upcoming = dated
@@ -670,15 +675,15 @@ const PRACTICAL = [
 
   if (upcoming && currentIndex > -1) {
     const d = daysBetween(now, upcoming.dueDate);
-    const when = d === 0 ? "today" : d === 1 ? "tomorrow" : "in " + d + " days";
+    const when = d === 0 ? "aujourd'hui" : d === 1 ? "demain" : "dans " + d + " jours";
     subEl.innerHTML = escapeHtml(upcoming.name) +
-      " due <span class='due-in'>" + when + "</span>";
+      " à rendre <span class='due-in'>" + when + "</span>";
   }
 
-  /* ---- footer ---- */
+  /* ---- pied de page ---- */
   document.getElementById("footer-line").innerHTML =
-    escapeHtml(COURSE.code) + " · Source and materials on " +
-    "<a href='" + COURSE.repoUrl + "'>GitHub</a> · Last updated " +
+    escapeHtml(COURSE.code) + " · Sources et supports sur " +
+    "<a href='" + COURSE.repoUrl + "'>GitHub</a> · Dernière mise à jour le " +
     fmtDate.format(new Date(document.lastModified));
 })();
 </script>
