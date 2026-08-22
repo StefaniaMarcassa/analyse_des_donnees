@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>L3 ECO — Analyse des données</title>
-<meta name="description" content="Page du cours : diapositives, notebooks, données et exercices.">
+<meta name="description" content="Page du cours : diapositives, notebooks, données et travaux dirigés.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
@@ -24,7 +24,6 @@
     --now:#0C6E5C;
     --now-wash:#E2F0EC;
     --due:#9E2318;
-    --due-wash:#FBEAE7;
 
     --sans:"Archivo",system-ui,sans-serif;
     --serif:"Source Serif 4",Georgia,serif;
@@ -101,7 +100,7 @@
     margin-bottom:0.15rem;
   }
 
-  /* ---------- bandeau de situation (« où en est-on ? ») ---------- */
+  /* ---------- bandeau de situation ---------- */
   .status{
     background:var(--card);
     border:1px solid var(--rule);
@@ -121,7 +120,6 @@
     margin:0;
   }
   .status-sub{margin:0;color:var(--ink-soft);font-size:0.95rem}
-  .status-sub .due-in{color:var(--due);font-weight:600}
 
   /* ---------- sections ---------- */
   section{padding:clamp(2.75rem,6vw,4.25rem) 0}
@@ -190,12 +188,13 @@
     letter-spacing:-0.012em;
     margin:0;
   }
-  .week p{margin:0.45rem 0 0;color:var(--ink-soft)}
+  .week p{margin:0.45rem 0 0;color:var(--ink-soft);max-width:75ch}
 
   .week-td{
     margin:0.85rem 0 0;
     padding-top:0.7rem;
     border-top:1px solid var(--rule);
+    max-width:75ch;
   }
   .week-td b{
     font-family:var(--mono);
@@ -250,54 +249,45 @@
   .week.is-past .week-body{opacity:0.62}
   .week.is-past:hover .week-body{opacity:1}
 
-  /* ---------- exercices ---------- */
-  .assignments{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
-  .assignment{
+  /* ---------- documents de TD ---------- */
+  .td-docs{list-style:none;margin:2.25rem 0 0;padding:0;display:grid;gap:0.75rem}
+  .td-doc{
     background:var(--card);
     border:1px solid var(--rule);
-    padding:1.2rem 1.35rem;
-    display:grid;
-    grid-template-columns:1fr auto;
-    gap:0.5rem 1.5rem;
-    align-items:start;
+    padding:0.95rem 1.15rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:0.4rem 1.25rem;
   }
-  .assignment h3{
+  .td-doc-num{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:0.11em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    white-space:nowrap;
+    min-width:3.5rem;
+  }
+  .td-doc-titre{
     font-family:var(--sans);
     font-weight:600;
-    font-size:1.08rem;
-    margin:0;
+    font-size:1rem;
     letter-spacing:-0.012em;
+    flex:1 1 16rem;
   }
-  .assignment p{margin:0.4rem 0 0;color:var(--ink-soft);max-width:58ch}
-  .assignment-due{
-    grid-column:1;
+  .td-doc-links{display:flex;flex-wrap:wrap;gap:0.5rem}
+  .td-doc-links a{
     font-family:var(--mono);
     font-size:0.74rem;
-    color:var(--due);
-    margin-top:0.7rem;
-  }
-  .assignment-due.is-closed{color:var(--ink-soft)}
-  .btn{
-    grid-column:2;
-    grid-row:1 / span 3;
-    align-self:center;
-    font-family:var(--sans);
-    font-weight:600;
-    font-size:0.85rem;
     text-decoration:none;
-    padding:0.55rem 1.05rem;
-    background:var(--ink);
-    color:var(--card);
-    white-space:nowrap;
-    transition:background 0.14s ease;
-  }
-  .btn:hover{background:var(--now)}
-  .btn[aria-disabled="true"]{
-    background:transparent;
-    color:var(--ink-soft);
+    padding:0.32rem 0.6rem;
     border:1px solid var(--rule);
-    pointer-events:none;
+    color:var(--ink);
+    transition:background 0.14s ease,border-color 0.14s ease;
   }
+  .td-doc-links a:hover{background:var(--ink);border-color:var(--ink);color:var(--card)}
+  .td-doc-vide{font-family:var(--mono);font-size:0.72rem;color:var(--ink-soft);opacity:0.7}
 
   /* ---------- blocs de texte ---------- */
   .cols{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr))}
@@ -320,8 +310,6 @@
     .schedule::before{left:calc(1.4rem - var(--rail)/2)}
     .week{grid-template-columns:2.8rem 1fr;gap:0 0.9rem}
     .week-mark{font-size:0.65rem}
-    .assignment{grid-template-columns:1fr}
-    .btn{grid-column:1;grid-row:auto;justify-self:start;margin-top:0.5rem}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -358,8 +346,10 @@
     <div class="wrap">
       <h2>Travaux dirigés</h2>
       <p class="lede">Chaque séance de cours est suivie d'un TD qui applique les mêmes outils à des
-      données économiques réelles. Le contenu de chaque TD figure dans le calendrier ci-dessus.</p>
+      données économiques réelles. Le sujet de chaque TD figure dans le calendrier ci-dessus ;
+      les documents sont déposés ici.</p>
       <div class="cols" id="td-format"></div>
+      <ol class="td-docs" id="td-docs"></ol>
     </div>
   </section>
 
@@ -380,8 +370,8 @@
 <!-- ==========================================================================
      MODIFIER À PARTIR D'ICI.
 
-     Quatre listes commandent toute la page : COURSE, SCHEDULE, TD_FORMAT
-     et PRACTICAL. Pour ajouter une séance, copier un bloc { ... } et en
+     Cinq listes commandent toute la page : COURSE, SCHEDULE, TD_FORMAT,
+     TD_DOCS et PRACTICAL. Pour ajouter une séance, copier un bloc { ... } et en
      changer le contenu. Les dates doivent s'écrire "AAAA-MM-JJ", faute de quoi
      la page ne peut pas déterminer la séance en cours.
      ========================================================================== -->
@@ -406,7 +396,8 @@ const COURSE = {
 /* -------------------------------------------------------------------------
    2. CALENDRIER
    Un bloc par séance. `date` est le lundi de la semaine concernée.
-   `links` peut rester vide : []  — les ajouter à mesure que le matériel existe.
+   `links` porte les supports de COURS. Les documents de TD se renseignent
+   plus bas, dans TD_DOCS.
 
    Comment écrire les liens :
      PDF          -> un chemin relatif simple :  "slides/01-intro.pdf"
@@ -424,9 +415,7 @@ const SCHEDULE = [
     td: "Micro / consommation — Reconstituer l'indice des prix harmonisé français à partir des indices et pondérations publiés par Eurostat. Mesurer ce que change le choix des pondérations.",
     links: [
       { label: "présentation du cours", href: "slides/00-presentation.pdf" },
-      { label: "diapositives", href: "slides/01-intro.pdf" },
-      { label: "énoncé TD", href: "td/td01-enonce.pdf" },
-      { label: "notebook TD", href: REPO + "/blob/main/notebooks/td01-indice-prix.ipynb" }
+      { label: "diapositives", href: "slides/01-intro.pdf" }
     ]
   },
   {
@@ -507,12 +496,9 @@ const SCHEDULE = [
   }
 ];
 
-
 /* -------------------------------------------------------------------------
    3. FORMAT DES TRAVAUX DIRIGÉS
-   Bloc affiché sous le calendrier. Texte simple ; le HTML de base fonctionne.
-   L'application économique de chaque TD se renseigne dans le champ `td` du
-   calendrier ci-dessus, et non ici.
+   Trois blocs de texte affichés en haut de la section Travaux dirigés.
    ------------------------------------------------------------------------- */
 const TD_FORMAT = [
   {
@@ -532,6 +518,37 @@ const TD_FORMAT = [
       Ces exercices ne sont pas notés, mais les questions de diagnostic du contrôle continu et du
       contrôle terminal sont construites à partir des erreurs qui y reviennent le plus souvent.`
   }
+];
+
+/* -------------------------------------------------------------------------
+   3 bis. DOCUMENTS DE TD
+   Un bloc par TD, affiché sous les trois blocs ci-dessus.
+   `links` vide : la ligne affiche « à venir ».
+
+   Mêmes règles de liens que dans le calendrier :
+     PDF     -> chemin relatif :  "td/td01-enonce.pdf"
+     .ipynb  -> REPO + "/blob/main/notebooks/td01-indice-prix.ipynb"
+
+   Ne mettez le corrigé en ligne qu'après la séance.
+   ------------------------------------------------------------------------- */
+const TD_DOCS = [
+  {
+    numero: "TD 1",
+    titre: "L'indice des prix à la consommation",
+    links: [
+      { label: "énoncé", href: "td/td01-enonce.pdf" },
+      { label: "notebook", href: REPO + "/blob/main/notebooks/td01-indice-prix.ipynb" }
+    ]
+  },
+  { numero: "TD 2",  titre: "Le taux de chômage au sens du BIT",       links: [] },
+  { numero: "TD 3",  titre: "Nettoyer des données de salaires",        links: [] },
+  { numero: "TD 4",  titre: "Construire un panel européen",            links: [] },
+  { numero: "TD 5",  titre: "La distribution des revenus",             links: [] },
+  { numero: "TD 6",  titre: "La courbe de Beveridge",                  links: [] },
+  { numero: "TD 7",  titre: "L'équation de Mincer",                    links: [] },
+  { numero: "TD 8",  titre: "Prix de l'immobilier et effets fixes",    links: [] },
+  { numero: "TD 9",  titre: "Rendements boursiers et bêta de MEDAF",   links: [] },
+  { numero: "TD 10", titre: "Sujet d'annale",                          links: [] }
 ];
 
 /* -------------------------------------------------------------------------
@@ -581,9 +598,6 @@ const PRACTICAL = [
   const now = new Date();
 
   const fmtDate = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
-  const fmtDateTime = new Intl.DateTimeFormat("fr-FR", {
-    weekday: "short", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit"
-  });
 
   function el(tag, className, html) {
     const node = document.createElement(tag);
@@ -653,12 +667,33 @@ const PRACTICAL = [
   });
 
   /* ---- format des travaux dirigés ---- */
-  const tdEl = document.getElementById("td-format");
+  const tdFormatEl = document.getElementById("td-format");
   TD_FORMAT.forEach(t => {
     const div = el("div");
     div.appendChild(el("h3", null, escapeHtml(t.heading)));
     div.appendChild(el("p", null, t.body));
-    tdEl.appendChild(div);
+    tdFormatEl.appendChild(div);
+  });
+
+  /* ---- documents de TD ---- */
+  const tdDocsEl = document.getElementById("td-docs");
+  TD_DOCS.forEach(t => {
+    const li = el("li", "td-doc");
+    li.appendChild(el("span", "td-doc-num", escapeHtml(t.numero)));
+    li.appendChild(el("span", "td-doc-titre", escapeHtml(t.titre)));
+
+    if (t.links && t.links.length) {
+      const box = el("div", "td-doc-links");
+      t.links.forEach(l => {
+        const a = el("a", null, escapeHtml(l.label));
+        a.href = l.href;
+        box.appendChild(a);
+      });
+      li.appendChild(box);
+    } else {
+      li.appendChild(el("span", "td-doc-vide", "à venir"));
+    }
+    tdDocsEl.appendChild(li);
   });
 
   /* ---- informations pratiques ---- */
@@ -678,18 +713,15 @@ const PRACTICAL = [
   if (currentIndex > -1) {
     const w = weeks[currentIndex];
     mainEl.textContent = "Séance " + w.week + " — " + w.topic;
+    if (w.td) subEl.textContent = "TD cette semaine";
   } else if (weeks.length && now < weeks[0].start) {
     statusEl.classList.add("is-pre");
     const d = daysBetween(now, weeks[0].start);
     mainEl.textContent = "Le cours débute le " + fmtDate.format(weeks[0].start);
-    subEl.innerHTML = d === 1 ? "Demain." : "Dans " + d + " jours.";
+    subEl.textContent = d === 1 ? "Demain." : "Dans " + d + " jours.";
   } else {
     statusEl.classList.add("is-pre");
     mainEl.textContent = "Les enseignements du semestre sont terminés.";
-  }
-
-  if (currentIndex > -1 && weeks[currentIndex].td) {
-    subEl.textContent = "TD cette semaine";
   }
 
   /* ---- pied de page ---- */
