@@ -139,8 +139,8 @@ Toutes les sources sont publiques et gratuites. Les extraits utilisés en TD son
 
 | Épreuve | Poids | Moment | Durée | Périmètre |
 |---|---|---|---|---|
-| **Contrôle continu (CC)** | 40 % | À l'issue de la séance 5 | 1 h | Séances 1 à 5 |
-| **Contrôle terminal (CT)** | 60 % | Session d'examens | 2 h | Ensemble du cours |
+| **Contrôle continu (CC)** | 50 % | À l'issue de la séance 5 | 1 h | Séances 1 à 5 |
+| **Contrôle terminal (CT)** | 50 % | Session d'examens | 2 h | Ensemble du cours |
 
 Les deux épreuves se déroulent **sur papier, sans machine et sans document**. Aucune des deux ne demande d'écrire du code de mémoire.
 
