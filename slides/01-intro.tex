@@ -1,0 +1,393 @@
+%=========================================================================
+%  Séance 1 : Environnement et anatomie des données
+%  Compilation :  pdflatex 01-intro.tex   (deux fois)
+%=========================================================================
+\documentclass[10pt,aspectratio=169]{beamer}
+\input{preambule-cy}
+
+\title{Environnement et anatomie des données}
+\subtitle{Analyse des données --- Séance 1}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Où nous allons aujourd'hui}
+\begin{enumerate}
+  \item Le notebook : comment il fonctionne, et comment il trompe.
+  \item Les quelques objets Python dont nous aurons besoin tout le semestre.
+  \item Une première application économique : un panier de biens.
+  \item L'anatomie d'un tableau de données --- la partie qui compte vraiment.
+\end{enumerate}
+
+\vspace{1.5em}
+À la fin de la séance, vous devez pouvoir répondre à une question : \alert{de quoi une ligne de ce fichier est-elle la description ?}
+\end{frame}
+
+%=========================================================================
+\section{Le notebook}
+%=========================================================================
+
+\begin{frame}{Google Colab, et rien d'autre}
+Tout le cours se fait dans le navigateur.
+
+\vspace{1em}
+\begin{itemize}
+  \item Aucune installation, aucune version de Python à gérer
+  \item Aucun problème de chemin d'accès
+  \item Un compte Google suffit
+  \item Le code s'exécute sur une machine distante, pas sur la vôtre
+\end{itemize}
+
+\vspace{1.2em}
+Le travail en local (Anaconda, VS Code) est possible mais \alert{non assisté} : les TD ne sont pas consacrés au dépannage d'installations.
+\end{frame}
+
+\begin{frame}{Premier notebook --- maintenant}
+\begin{enumerate}
+  \item Connectez-vous à votre compte Google.
+  \item Allez sur \texttt{colab.research.google.com}
+  \item Cliquez sur \textbf{Nouveau notebook}.
+\end{enumerate}
+
+\vspace{1.5em}
+Un notebook est une suite de \textbf{cellules} de deux types :
+
+\vspace{0.6em}
+\begin{itemize}
+  \item les cellules de \textbf{code}, exécutées avec \texttt{Maj + Entrée} ;
+  \item les cellules de \textbf{texte}, pour dire ce que l'on fait et pourquoi.
+\end{itemize}
+
+\vspace{1.2em}
+Un notebook sans cellules de texte est illisible --- y compris pour vous, dans trois semaines.
+\end{frame}
+
+\begin{frame}[fragile]{Une première cellule}
+\begin{lstlisting}
+# Le taux de croissance entre deux annees
+pib_2023 = 2822
+pib_2024 = 2891
+
+croissance = (pib_2024 - pib_2023) / pib_2023
+print(croissance)
+\end{lstlisting}
+
+\vspace{0.5em}
+\begin{lstlisting}
+0.024450035435861798
+\end{lstlisting}
+
+\vspace{1em}
+Trois choses : le \texttt{\#} introduit un commentaire, le \texttt{=} affecte une valeur, et rien ne s'affiche sans \texttt{print()}.
+\end{frame}
+
+\begin{frame}[fragile]{Le piège de l'ordre d'exécution}
+Les cellules gardent leur effet même après modification. L'ordre dans lequel vous les avez \emph{exécutées} n'est pas l'ordre dans lequel elles sont \emph{écrites}.
+
+\vspace{1em}
+\begin{lstlisting}
+tva = 0.20              # cellule executee en premier
+prix_ttc = 100 * (1 + tva)
+
+tva = 0.055             # cellule ajoutee plus tard, plus haut
+\end{lstlisting}
+
+\vspace{0.8em}
+\texttt{prix\_ttc} vaut toujours 120. Rien ne le signale.
+
+\vspace{1em}
+\begin{alertblock}{Le réflexe à prendre}
+Avant de conclure quoi que ce soit : \textbf{Exécution $\rightarrow$ Tout exécuter}. Si le notebook ne passe pas de haut en bas, il est faux.
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Un piège qui vous coûtera dix minutes}
+Lors du premier import de fichier, Colab peut renvoyer une erreur si les \textbf{cookies tiers} sont bloqués dans votre navigateur.
+
+\vspace{1.2em}
+La correction :
+\begin{enumerate}
+  \item Ouvrir les paramètres du navigateur
+  \item Autoriser \texttt{https://[*.]googleusercontent.com:443}
+\end{enumerate}
+
+\vspace{1.2em}
+Notez-le maintenant. Vous en aurez besoin à la séance 2.
+\end{frame}
+
+%=========================================================================
+\section{Les objets dont nous aurons besoin}
+%=========================================================================
+
+\begin{frame}[fragile]{Quatre types de base}
+\begin{lstlisting}
+inflation = 2.4          # float  : nombre a virgule
+annee     = 2024         # int    : nombre entier
+pays      = "France"     # str    : texte
+zone_euro = True         # bool   : vrai / faux
+
+type(inflation)          # <class 'float'>
+\end{lstlisting}
+
+\vspace{1.5em}
+La fonction \texttt{type()} paraît inutile aujourd'hui. Elle sera votre premier réflexe de diagnostic à partir de la séance 2.
+\end{frame}
+
+\begin{frame}{Pourquoi le type n'est pas un détail}
+\begin{block}{Le code commune}
+Le code INSEE de Bourg-en-Bresse est \texttt{01053}. Lu comme un nombre, il devient 1053 --- et ne correspond plus à aucune commune lors d'une fusion de fichiers.
+\end{block}
+
+\vspace{0.8em}
+\begin{block}{L'année}
+Une année stockée comme texte se trie dans l'ordre alphabétique. \texttt{"1999"} vient après \texttt{"10000"}, et les comparaisons \texttt{>} ne veulent plus rien dire.
+\end{block}
+
+\vspace{1.2em}
+La moitié des bugs de ce semestre viendra d'un type mal interprété à la lecture d'un fichier. Aucun ne produira de message d'erreur.
+\end{frame}
+
+\begin{frame}[fragile]{Listes : une suite ordonnée}
+\begin{lstlisting}
+prix = [1.20, 0.95, 2.40, 1.75]
+
+prix[0]        # 1.2   -- on compte a partir de zero
+prix[-1]       # 1.75  -- le dernier
+prix[0:2]      # [1.2, 0.95]  -- borne de droite exclue
+len(prix)      # 4
+sum(prix)      # 6.3
+\end{lstlisting}
+
+\vspace{1em}
+Deux conventions à intégrer une fois pour toutes : l'indexation commence à \alert{zéro}, et la borne de droite d'une tranche est \alert{exclue}.
+
+\vspace{0.6em}
+Se tromper sur l'une ou l'autre ne produit pas d'erreur. Cela produit un résultat faux.
+\end{frame}
+
+\begin{frame}[fragile]{Dictionnaires : des paires clé--valeur}
+\begin{lstlisting}
+prix = {"pain": 1.20, "lait": 0.95, "cafe": 2.40}
+
+prix["pain"]            # 1.2
+prix.keys()             # les biens
+prix.values()           # les prix
+"beurre" in prix        # False
+\end{lstlisting}
+
+\vspace{1.2em}
+Là où une liste retient un \emph{ordre}, un dictionnaire retient une \emph{correspondance}.
+
+\vspace{0.8em}
+C'est la structure d'une ligne de tableau : chaque variable porte un nom, et à chaque nom correspond une valeur.
+\end{frame}
+
+\begin{frame}[fragile]{Lire un message d'erreur}
+\begin{lstlisting}
+prix["beurre"]
+
+KeyError: 'beurre'
+\end{lstlisting}
+
+\vspace{1em}
+Un message d'erreur Python se lit \alert{par la fin} : la dernière ligne dit ce qui ne va pas, celles du dessus disent où.
+
+\vspace{1em}
+\begin{itemize}
+  \item \texttt{KeyError} --- cette clé n'existe pas
+  \item \texttt{NameError} --- variable jamais définie (cellule non exécutée ?)
+  \item \texttt{TypeError} --- opération impossible entre ces types
+  \item \texttt{FileNotFoundError} --- le fichier n'est pas là où vous croyez
+\end{itemize}
+
+\vspace{0.8em}
+Une erreur qui s'affiche est une bonne nouvelle. Ce sont les calculs silencieusement faux qui coûtent cher.
+\end{frame}
+
+%=========================================================================
+\section{Une première application}
+%=========================================================================
+
+\begin{frame}[fragile]{Un panier de biens}
+Deux dictionnaires suffisent à représenter le problème économique.
+
+\vspace{1em}
+\begin{lstlisting}
+prix_2023 = {"pain": 1.20, "lait": 0.95, "cafe": 2.40}
+prix_2024 = {"pain": 1.35, "lait": 1.02, "cafe": 2.28}
+
+quantites_2023 = {"pain": 120, "lait": 90, "cafe": 24}
+\end{lstlisting}
+
+\vspace{1.2em}
+Notez que le prix du café \emph{baisse}. Un indice de prix n'est pas la moyenne des hausses : c'est le coût d'un panier donné, comparé dans le temps.
+\end{frame}
+
+\begin{frame}[fragile]{Le coût du panier}
+\begin{lstlisting}
+depense_2023 = 0
+for bien in quantites_2023:
+    depense_2023 += prix_2023[bien] * quantites_2023[bien]
+
+print(depense_2023)     # 287.1
+\end{lstlisting}
+
+\vspace{1.2em}
+Une boucle \texttt{for} parcourt les clés du dictionnaire ; le \texttt{+=} accumule. L'indentation n'est pas décorative : elle délimite le corps de la boucle.
+
+\vspace{1em}
+Refaites le calcul avec \texttt{prix\_2024} et les \emph{mêmes} quantités. Le rapport des deux dépenses est un indice de Laspeyres.
+\end{frame}
+
+\begin{frame}{La question qui occupera le TD}
+Nous venons de fixer les quantités à celles de 2023. Rien ne nous y obligeait.
+
+\vspace{1.5em}
+\begin{columns}[T]
+\begin{column}{0.46\textwidth}
+\textbf{Laspeyres}
+
+\vspace{0.5em}
+Quantités de l'année de base.
+
+\vspace{0.5em}
+\small\color{CYgris}
+Combien coûterait aujourd'hui le panier d'hier ?
+\end{column}
+\begin{column}{0.46\textwidth}
+\textbf{Paasche}
+
+\vspace{0.5em}
+Quantités de l'année courante.
+
+\vspace{0.5em}
+\small\color{CYgris}
+Combien coûtait hier le panier d'aujourd'hui ?
+\end{column}
+\end{columns}
+
+\vspace{1.8em}
+Les deux mesurent « l'inflation ». Ils ne donnent pas le même chiffre, et l'écart n'est pas une erreur : les ménages substituent.
+\end{frame}
+
+%=========================================================================
+\section{Anatomie d'un tableau de données}
+%=========================================================================
+
+\begin{frame}{Trois mots à ne jamais confondre}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{id\_menage} & \textbf{revenu} & \textbf{region} \\
+\midrule
+1001 & 32\,400 & Île-de-France \\
+1002 & 28\,900 & Occitanie \\
+1003 & 41\,200 & Bretagne \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{1.5em}
+\begin{itemize}
+  \item Une \textbf{observation} : une ligne. Ici, un ménage.
+  \item Une \textbf{variable} : une colonne. Ici, le revenu.
+  \item L'\textbf{unité statistique} : ce que représente une ligne. Ici, le ménage --- et non l'individu.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Pourquoi l'unité statistique est le premier piège}
+La même question économique change de réponse selon l'unité retenue.
+
+\vspace{1.2em}
+\begin{block}{Un exemple}
+« Quel est le revenu moyen ? »
+
+\vspace{0.5em}
+Par \textbf{ménage} : un chiffre. Par \textbf{individu} : un autre. Par \textbf{unité de consommation} : un troisième.
+
+\vspace{0.5em}
+Aucun n'est faux. Ils ne répondent simplement pas à la même question.
+\end{block}
+
+\vspace{1.2em}
+Avant toute analyse : \alert{de quoi une ligne est-elle la description ?}
+\end{frame}
+
+\begin{frame}{Trois structures de données}
+\begin{columns}[T]
+\begin{column}{0.31\textwidth}
+\textbf{Coupe transversale}
+
+\vspace{0.5em}
+Plusieurs unités, une date.
+
+\vspace{0.5em}
+\small\color{CYgris}
+Les salaires de 40\,000 individus en 2023.
+\end{column}
+\begin{column}{0.31\textwidth}
+\textbf{Série temporelle}
+
+\vspace{0.5em}
+Une unité, plusieurs dates.
+
+\vspace{0.5em}
+\small\color{CYgris}
+Le taux de chômage français, 1975--2025.
+\end{column}
+\begin{column}{0.31\textwidth}
+\textbf{Panel}
+
+\vspace{0.5em}
+Plusieurs unités, plusieurs dates.
+
+\vspace{0.5em}
+\small\color{CYgris}
+Le PIB de 27 pays, 2000--2024.
+\end{column}
+\end{columns}
+
+\vspace{2em}
+La structure détermine ce que l'on peut estimer --- et ce que l'on ne peut pas. Nous construirons un panel à la séance~4.
+\end{frame}
+
+\begin{frame}{Exercice éclair}
+Pour chacun de ces jeux de données : quelle est l'unité statistique, et quelle est la structure ?
+
+\vspace{1.5em}
+\begin{enumerate}
+  \item Le prix de clôture du CAC 40, chaque jour depuis 1990.
+  \item Les réponses à l'Enquête Emploi du deuxième trimestre 2024.
+  \item Les transactions immobilières enregistrées en France de 2014 à 2024.
+  \item Le taux d'emploi des 27 pays de l'UE, chaque année depuis 2000.
+\end{enumerate}
+
+\vspace{1.5em}
+\small\color{CYgris}
+Le cas 3 est moins évident qu'il n'y paraît : discutons-en.
+\end{frame}
+
+%=========================================================================
+\section{Pour la suite}
+%=========================================================================
+
+\begin{frame}{Avant la séance 2}
+\begin{enumerate}
+  \item Reprenez le calcul du panier et obtenez l'indice de Laspeyres pour 2024.
+  \item Vérifiez que votre notebook s'exécute entièrement de haut en bas.
+  \item Autorisez \texttt{googleusercontent.com} dans votre navigateur.
+  \item Récupérez le notebook de la séance 2 sur le site du cours.
+\end{enumerate}
+
+\vspace{2em}
+\begin{center}
+\large \texttt{stefaniamarcassa.github.io/analyse\_des\_donnees}
+\end{center}
+\end{frame}
+
+\begin{frame}[standout]
+Des questions ?
+\end{frame}
+
+\end{document}

@@ -1,0 +1,48 @@
+%=========================================================================
+%  Préambule commun — Analyse des données, L3 Économie
+%  Appelé par chaque séance via \input{preambule-cy}
+%=========================================================================
+\usetheme[progressbar=frametitle,numbering=fraction,block=fill]{metropolis}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+%\usepackage{lmodern}  % absent de cet environnement de compilation ; a decommenter
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+
+%-------------------------------------------------------------------------
+%  PALETTE — remplacer par les valeurs de votre charte CY habituelle
+%-------------------------------------------------------------------------
+\definecolor{CYprincipal}{HTML}{1B2A4A}   % couleur dominante (titres, barres)
+\definecolor{CYaccent}{HTML}{C8102E}      % couleur d'accentuation
+\definecolor{CYgris}{HTML}{55637C}        % texte secondaire
+\definecolor{CYclair}{HTML}{EEF1F6}       % fonds de blocs
+
+\setbeamercolor{palette primary}{bg=CYprincipal,fg=white}
+\setbeamercolor{progress bar}{fg=CYaccent}
+\setbeamercolor{frametitle}{bg=CYprincipal,fg=white}
+\setbeamercolor{alerted text}{fg=CYaccent}
+\setbeamercolor{block title}{bg=CYclair,fg=CYprincipal}
+\setbeamercolor{block body}{bg=CYclair!60,fg=black}
+
+%-------------------------------------------------------------------------
+%  Mise en forme du code Python
+%-------------------------------------------------------------------------
+\lstdefinestyle{py}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{CYaccent},
+  stringstyle=\color{CYprincipal},
+  commentstyle=\color{CYgris}\itshape,
+  showstringspaces=false,
+  breaklines=true,
+  frame=none,
+  literate={é}{{\'e}}1 {è}{{\`e}}1 {à}{{\`a}}1 {ç}{{\c c}}1 {ê}{{\^e}}1 {ô}{{\^o}}1 {û}{{\^u}}1 {î}{{\^i}}1
+}
+\lstset{style=py}
+
+\author{Stefania Marcassa}
+\institute{CY Cergy Paris Université --- L3 Économie}
+\date{}
