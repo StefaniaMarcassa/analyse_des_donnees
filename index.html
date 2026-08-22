@@ -192,6 +192,25 @@
   }
   .week p{margin:0.45rem 0 0;color:var(--ink-soft);max-width:60ch}
 
+  .week-td{
+    margin:0.85rem 0 0;
+    padding-top:0.7rem;
+    border-top:1px solid var(--rule);
+    max-width:60ch;
+  }
+  .week-td b{
+    font-family:var(--mono);
+    font-weight:500;
+    font-size:0.66rem;
+    letter-spacing:0.11em;
+    text-transform:uppercase;
+    color:var(--ink);
+    opacity:0.45;
+    display:block;
+    margin-bottom:0.2rem;
+  }
+  .week.is-now .week-td{border-top-color:#BFD9D2}
+
   .week-links{
     display:flex;
     flex-wrap:wrap;
@@ -336,13 +355,12 @@
     </div>
   </section>
 
-  <section id="assignments-section">
+  <section id="td-section">
     <div class="wrap">
-      <h2>Exercices</h2>
-      <p class="lede">Les exercices hebdomadaires ne sont pas notés. Ils constituent la seule
-      préparation efficace aux deux épreuves : les questions de diagnostic du contrôle continu et du
-      contrôle terminal sont construites à partir des erreurs qui y reviennent le plus souvent.</p>
-      <ol class="assignments" id="assignments"></ol>
+      <h2>Travaux dirigés</h2>
+      <p class="lede">Chaque séance de cours est suivie d'un TD qui applique les mêmes outils à des
+      données économiques réelles. Le contenu de chaque TD figure dans le calendrier ci-dessus.</p>
+      <div class="cols" id="td-format"></div>
     </div>
   </section>
 
@@ -363,7 +381,7 @@
 <!-- ==========================================================================
      MODIFIER À PARTIR D'ICI.
 
-     Quatre listes commandent toute la page : COURSE, SCHEDULE, ASSIGNMENTS
+     Quatre listes commandent toute la page : COURSE, SCHEDULE, TD_FORMAT
      et PRACTICAL. Pour ajouter une séance, copier un bloc { ... } et en
      changer le contenu. Les dates doivent s'écrire "AAAA-MM-JJ", faute de quoi
      la page ne peut pas déterminer la séance en cours.
@@ -404,6 +422,7 @@ const SCHEDULE = [
     date: "2026-08-31",
     topic: "Environnement et anatomie des données",
     summary: "Prise en main de Colab. Observation, variable, unité statistique. Application : indices de prix.",
+    td: "Micro / consommation — Construire un indice des prix à la consommation à partir d'un panier pondéré. Comparer Laspeyres et Paasche.",
     links: []
   },
   {
@@ -411,6 +430,7 @@ const SCHEDULE = [
     date: "2026-09-07",
     topic: "Chargement, inspection, filtrage",
     summary: "pandas, lecture de fichiers, et surtout lecture d'un dictionnaire des variables. Application : Enquête Emploi.",
+    td: "Travail — Enquête Emploi (INSEE) : reconstruire le statut BIT à partir de la documentation, calculer un taux de chômage, expliquer l'écart au chiffre officiel.",
     links: []
   },
   {
@@ -418,6 +438,7 @@ const SCHEDULE = [
     date: "2026-09-14",
     topic: "Nettoyage des données",
     summary: "Valeurs manquantes, doublons, recodages. Chaque décision de nettoyage se justifie. Application : salaires.",
+    td: "Travail / inégalités — Données de salaires : top-coding, salaires nuls, temps partiels mal renseignés. Mesurer l'effet de chaque décision de nettoyage.",
     links: []
   },
   {
@@ -425,6 +446,7 @@ const SCHEDULE = [
     date: "2026-09-21",
     topic: "Restructuration et fusion",
     summary: "groupby, merge, passage long/large, structure de panel. Application : panel Eurostat.",
+    td: "Macro — Panel Eurostat pays × années : fusionner trois sources, passer en format long, produire un tableau pays × décennie.",
     links: []
   },
   {
@@ -432,6 +454,7 @@ const SCHEDULE = [
     date: "2026-09-28",
     topic: "Statistiques descriptives défendables",
     summary: "Quantiles, points atypiques, pondérations d'enquête. Application : distribution des revenus. Contrôle continu à l'issue de cette séance.",
+    td: "Micro / redistribution — Déciles, courbe de Lorenz, indice de Gini. Refaire le calcul sans pondération et mesurer le biais.",
     links: []
   },
   {
@@ -439,6 +462,7 @@ const SCHEDULE = [
     date: "2026-10-05",
     topic: "Visualisation de données économiques",
     summary: "Quel graphique pour quelle question, et comment un graphique trompe. Application : courbe de Beveridge.",
+    td: "Travail / macro — Courbe de Beveridge française (DARES) : dater les déplacements de courbe. Puis courbe de Phillips sur données longues.",
     links: []
   },
   {
@@ -446,6 +470,7 @@ const SCHEDULE = [
     date: "2026-10-12",
     topic: "Régression en pratique I",
     summary: "statsmodels, lecture d'une sortie, muettes, écarts-types robustes. Application : équation de Mincer.",
+    td: "Travail — Équation de Mincer : rendement de l'éducation, expérience, muette de genre, interaction. Interpréter chaque coefficient en une phrase.",
     links: []
   },
   {
@@ -453,6 +478,7 @@ const SCHEDULE = [
     date: "2026-10-19",
     topic: "Régression en pratique II",
     summary: "Logarithmes, interactions, effets fixes, export LaTeX. Application : régression hédonique sur données DVF.",
+    td: "Micro / immobilier — Régression hédonique sur données DVF, avec effets fixes départementaux puis communaux. Observer le déplacement des coefficients.",
     links: []
   },
   {
@@ -460,6 +486,7 @@ const SCHEDULE = [
     date: "2026-11-02",
     topic: "Séries temporelles et API",
     summary: "Dates, import automatique, taux de croissance. Application : rendements et bêta de MEDAF.",
+    td: "Finance — Cours boursiers : rendements, volatilité et son regroupement, bêta de MEDAF. Sensibilité du bêta à la fenêtre d'estimation.",
     links: []
   },
   {
@@ -467,29 +494,35 @@ const SCHEDULE = [
     date: "2026-11-09",
     topic: "Prédiction, reproductibilité, synthèse",
     summary: "Ce qui distingue prédire d'expliquer. Traitement d'un sujet d'annale en TD.",
+    td: "Révisions — Traitement d'un sujet de contrôle terminal des années précédentes, corrigé en séance.",
     links: []
   }
 ];
 
 
 /* -------------------------------------------------------------------------
-   3. EXERCICES
-   `invite` est le lien vers l'exercice (notebook, Colab ou GitHub Classroom).
-   Laisser "" tant que l'exercice n'est pas prêt : le bouton affiche alors
-   « Bientôt disponible ». `due` s'écrit "AAAA-MM-JJTHH:MM", en heure locale.
+   3. FORMAT DES TRAVAUX DIRIGÉS
+   Bloc affiché sous le calendrier. Texte simple ; le HTML de base fonctionne.
+   L'application économique de chaque TD se renseigne dans le champ `td` du
+   calendrier ci-dessus, et non ici.
    ------------------------------------------------------------------------- */
-const ASSIGNMENTS = [
+const TD_FORMAT = [
   {
-    name: "Exercice 1 — Nettoyage",
-    due: "2026-09-20T23:59",
-    brief: "Valeurs manquantes, doublons et recodages sur un extrait de données de salaires.",
-    invite: ""
+    heading: "Déroulement d'une séance",
+    body: `Vingt à vingt-cinq minutes de retour sur l'exercice de la semaine et sur les erreurs
+      les plus fréquentes ; une demi-heure de résolution en direct d'un mini-problème économique ;
+      puis quarante-cinq minutes de travail autonome sur le notebook, avec assistance.`
   },
   {
-    name: "Exercice 2 — Fusion et restructuration",
-    due: "2026-09-27T23:59",
-    brief: "À préciser.",
-    invite: ""
+    heading: "Avant la séance",
+    body: `Ouvrez le notebook à trous, déposé sur cette page en début de semaine, dans votre
+      navigateur. Le TD commence sur le notebook, pas sur son téléchargement.`
+  },
+  {
+    heading: "Après la séance",
+    body: `Le script complet est mis en ligne, puis l'exercice à traiter pour la séance suivante.
+      Ces exercices ne sont pas notés, mais les questions de diagnostic du contrôle continu et du
+      contrôle terminal sont construites à partir des erreurs qui y reviennent le plus souvent.`
   }
 ];
 
@@ -595,6 +628,7 @@ const PRACTICAL = [
     if (i === currentIndex) body.appendChild(el("span", "now-tag", "Cette semaine"));
     body.appendChild(el("h3", null, escapeHtml(w.topic)));
     if (w.summary) body.appendChild(el("p", null, escapeHtml(w.summary)));
+    if (w.td) body.appendChild(el("p", "week-td", "<b>Travaux dirigés</b>" + escapeHtml(w.td)));
 
     if (w.links && w.links.length) {
       const links = el("div", "week-links");
@@ -609,37 +643,13 @@ const PRACTICAL = [
     scheduleEl.appendChild(li);
   });
 
-  /* ---- exercices ---- */
-  const assignmentsEl = document.getElementById("assignments");
-  const dated = ASSIGNMENTS.map(a => ({ ...a, dueDate: new Date(a.due) }));
-
-  dated.forEach(a => {
-    const li = el("li", "assignment");
-    li.appendChild(el("h3", null, escapeHtml(a.name)));
-    li.appendChild(el("p", null, escapeHtml(a.brief)));
-
-    const closed = a.dueDate < now;
-    const days = daysBetween(now, a.dueDate);
-    let dueText = "À rendre le " + fmtDateTime.format(a.dueDate);
-    if (closed) dueText = "Clos — échéance du " + fmtDateTime.format(a.dueDate);
-    else if (days === 0) dueText += " · aujourd'hui";
-    else if (days === 1) dueText += " · demain";
-    else if (days > 1) dueText += " · dans " + days + " jours";
-
-    const due = el("div", "assignment-due", dueText);
-    if (closed) due.classList.add("is-closed");
-    li.appendChild(due);
-
-    const btn = el("a", "btn");
-    if (a.invite && !closed) {
-      btn.href = a.invite;
-      btn.textContent = "Ouvrir l'exercice";
-    } else {
-      btn.setAttribute("aria-disabled", "true");
-      btn.textContent = closed ? "Clos" : "Bientôt disponible";
-    }
-    li.appendChild(btn);
-    assignmentsEl.appendChild(li);
+  /* ---- format des travaux dirigés ---- */
+  const tdEl = document.getElementById("td-format");
+  TD_FORMAT.forEach(t => {
+    const div = el("div");
+    div.appendChild(el("h3", null, escapeHtml(t.heading)));
+    div.appendChild(el("p", null, t.body));
+    tdEl.appendChild(div);
   });
 
   /* ---- informations pratiques ---- */
@@ -669,15 +679,8 @@ const PRACTICAL = [
     mainEl.textContent = "Les enseignements du semestre sont terminés.";
   }
 
-  const upcoming = dated
-    .filter(a => a.dueDate > now)
-    .sort((a, b) => a.dueDate - b.dueDate)[0];
-
-  if (upcoming && currentIndex > -1) {
-    const d = daysBetween(now, upcoming.dueDate);
-    const when = d === 0 ? "aujourd'hui" : d === 1 ? "demain" : "dans " + d + " jours";
-    subEl.innerHTML = escapeHtml(upcoming.name) +
-      " à rendre <span class='due-in'>" + when + "</span>";
+  if (currentIndex > -1 && weeks[currentIndex].td) {
+    subEl.textContent = "TD cette semaine";
   }
 
   /* ---- pied de page ---- */
