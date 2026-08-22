@@ -190,12 +190,13 @@
     letter-spacing:-0.012em;
     margin:0;
   }
-  .week p{margin:0.45rem 0 0;color:var(--ink-soft)}
+  .week p{margin:0.45rem 0 0;color:var(--ink-soft);max-width:60ch}
 
   .week-td{
     margin:0.85rem 0 0;
     padding-top:0.7rem;
     border-top:1px solid var(--rule);
+    max-width:60ch;
   }
   .week-td b{
     font-family:var(--mono);
@@ -421,10 +422,12 @@ const SCHEDULE = [
     date: "2026-08-31",
     topic: "Environnement et anatomie des données",
     summary: "Prise en main de Colab. Observation, variable, unité statistique. Application : indices de prix.",
-    td: "Micro / consommation — Construire un indice des prix à la consommation à partir d'un panier pondéré. Comparer Laspeyres et Paasche.",
+    td: "Micro / consommation — Reconstituer l'indice des prix harmonisé français à partir des indices et pondérations publiés par Eurostat. Mesurer ce que change le choix des pondérations.",
     links: [
       { label: "présentation du cours", href: "slides/00-presentation.pdf" },
-      { label: "diapositives", href: "slides/01-intro.pdf" }
+      { label: "diapositives", href: "slides/01-intro.pdf" },
+      { label: "énoncé TD", href: "td/td01-enonce.pdf" },
+      { label: "notebook TD", href: REPO + "/blob/main/notebooks/td01-indice-prix.ipynb" }
     ]
   },
   {
@@ -433,7 +436,9 @@ const SCHEDULE = [
     topic: "Chargement, inspection, filtrage",
     summary: "pandas, lecture de fichiers, et surtout lecture d'un dictionnaire des variables. Application : Enquête Emploi.",
     td: "Travail — Enquête Emploi (INSEE) : reconstruire le statut BIT à partir de la documentation, calculer un taux de chômage, expliquer l'écart au chiffre officiel.",
-    links: []
+    links: [
+      { label: "diapositives", href: "slides/02-chargement.pdf" }
+    ]
   },
   {
     week: 3,
@@ -454,10 +459,12 @@ const SCHEDULE = [
   {
     week: 5,
     date: "2026-09-28",
-    topic: "Statistiques descriptives défendables",
-    summary: "Quantiles, points atypiques, pondérations d'enquête. Application : distribution des revenus. Contrôle continu à l'issue de cette séance.",
-    td: "Micro / redistribution — Déciles, courbe de Lorenz, indice de Gini. Refaire le calcul sans pondération et mesurer le biais.",
-    links: []
+    topic: "Décrire, comparer, conclure",
+    summary: "Quantiles, points atypiques, pondérations d'enquête. Puis le tableau de comparaison de groupes : écarts-types, intervalles de confiance, test de Welch. Contrôle continu à l'issue de cette séance.",
+    td: "Micro / redistribution — Déciles et indice de Gini. Construire le tableau de comparaison des revenus entre deux groupes avec intervalles de confiance. Refaire sans pondération et mesurer le biais.",
+    links: [
+      { label: "diapositives", href: "slides/05-descriptives.pdf" }
+    ]
   },
   {
     week: 6,
