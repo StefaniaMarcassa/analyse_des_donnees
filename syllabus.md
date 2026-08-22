@@ -1,4 +1,4 @@
-# Syllabus — Analyse des Données — L3 Économie
+# Analyse des Données — L3 Économie
 
 **CY Cergy Paris Université** · Année 2026–2027
 **Enseignante :** Stefania Marcassa
@@ -76,8 +76,8 @@ Ce bloc est **auto-suffisant** : il constitue à lui seul le périmètre du cont
 **TD — *Macro*.** Panel Eurostat pays × années. Fusionner PIB par habitant, taux de chômage et taux d'emploi issus de trois fichiers distincts. Passer en format long, gérer les pays absents d'une des sources, produire un tableau pays × décennie.
 
 #### Séance 5 · Statistiques descriptives défendables
-**CM.** Moyennes, médianes, quantiles. Valeurs extrêmes : distinguer valeur extrême, point atypique et point influent ; influence sur les statistiques et sur l'estimation. **Pondérations d'enquête** : pourquoi une moyenne non pondérée sur données d'enquête est fausse. Tableau descriptif publiable.
-**TD — *Micro / redistribution*.** Distribution des revenus des ménages. Déciles, rapport interdécile, courbe de Lorenz, indice de Gini calculé « à la main » puis vérifié. Refaire l'ensemble sans pondération et mesurer le biais.
+**CM.** Moyennes, médianes, quantiles. Valeurs extrêmes : distinguer valeur extrême, point atypique et point influent. **Pondérations d'enquête** : pourquoi une moyenne non pondérée sur données d'enquête est fausse. Puis le livrable réel du métier : le **tableau de comparaison de groupes**, avec écarts-types, erreurs-types et intervalles de confiance. Comparaison de moyennes par le test de Welch, systématiquement. Ce qu'une p-value dit et ne dit pas ; pourquoi significatif ne veut pas dire important. Test du khi-deux pour deux variables qualitatives.
+**TD — *Micro / redistribution*.** Distribution des revenus des ménages : déciles, rapport interdécile, indice de Gini. Construire le tableau de comparaison des revenus entre deux groupes, avec intervalles de confiance, et l'interpréter. Refaire l'ensemble sans pondération et mesurer le biais.
 
 > **Contrôle continu à l'issue de cette séance.** Voir la section Évaluation.
 
@@ -90,7 +90,7 @@ Ce bloc est **auto-suffisant** : il constitue à lui seul le périmètre du cont
 **TD — *Travail / macro*.** Courbe de Beveridge française (chômage vs emplois vacants, DARES) : identifier visuellement les déplacements de courbe et les dater. Puis courbe de Phillips sur données longues et discussion de sa disparition apparente.
 
 #### Séance 7 · Régression en pratique I
-**CM.** `statsmodels`. Lecture complète d'une sortie de régression. Variables muettes et catégories de référence. Écarts-types robustes et *clustering*. Ce que le R² dit et ne dit pas. Ce qu'un coefficient permet et ne permet pas d'affirmer.
+**CM.** `statsmodels`. Lecture complète d'une sortie de régression. **Une différence de moyennes entre deux groupes est le coefficient d'une régression sur une muette** : le t du test et le t du coefficient sont le même nombre, montré une fois sur les deux sorties côte à côte. Variables muettes et catégories de référence. Écarts-types robustes et *clustering*. Ce que le R² dit et ne dit pas. Ce qu'un coefficient permet et ne permet pas d'affirmer.
 **TD — *Travail*.** Équation de Mincer : rendement d'une année d'éducation supplémentaire. Ajouter l'expérience et son carré, une muette de genre, puis une interaction genre × éducation. Interpréter chaque coefficient en français, en une phrase, sans employer le mot « effet » sans justification.
 
 #### Séance 8 · Régression en pratique II
@@ -139,8 +139,8 @@ Toutes les sources sont publiques et gratuites. Les extraits utilisés en TD son
 
 | Épreuve | Poids | Moment | Durée | Périmètre |
 |---|---|---|---|---|
-| **Contrôle continu (CC)** | 50 % | À l'issue de la séance 5 | 1 h | Séances 1 à 5 |
-| **Contrôle terminal (CT)** | 50 % | Session d'examens | 2 h | Ensemble du cours |
+| **Contrôle continu (CC)** | 40 % | À l'issue de la séance 5 | 1 h | Séances 1 à 5 |
+| **Contrôle terminal (CT)** | 60 % | Session d'examens | 2 h | Ensemble du cours |
 
 Les deux épreuves se déroulent **sur papier, sans machine et sans document**. Aucune des deux ne demande d'écrire du code de mémoire.
 
@@ -157,7 +157,7 @@ Les deux épreuves reposent sur quatre types de questions :
 
 ### Contrôle continu — séance 5
 
-Porte sur le Bloc 1 : chargement et inspection, lecture d'un dictionnaire des variables, traitement des manquants et des points atypiques, fusion et restructuration, statistiques descriptives et pondération.
+Porte sur le Bloc 1 : chargement et inspection, lecture d'un dictionnaire des variables, traitement des manquants et des points atypiques, fusion et restructuration, statistiques descriptives, pondération, et lecture d'un tableau de comparaison de groupes.
 
 Deux questions au moins portent sur une **décision de nettoyage à justifier**. Il n'y a pas de bonne réponse unique ; c'est la justification qui est notée.
 
