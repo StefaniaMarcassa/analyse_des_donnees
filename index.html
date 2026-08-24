@@ -24,6 +24,7 @@
     --now:#0C6E5C;
     --now-wash:#E2F0EC;
     --due:#9E2318;
+    --due-wash:#FBEAE7;
 
     --sans:"Archivo",system-ui,sans-serif;
     --serif:"Source Serif 4",Georgia,serif;
@@ -112,6 +113,7 @@
     gap:0.35rem 1.5rem;
   }
   .status.is-pre{border-left-color:var(--ink-soft)}
+  .status.is-exam{border-left-color:var(--due)}
   .status-main{
     font-family:var(--sans);
     font-weight:600;
@@ -243,6 +245,23 @@
     letter-spacing:0.12em;
     text-transform:uppercase;
     color:var(--now);
+    margin-bottom:0.4rem;
+  }
+
+  /* épreuve */
+  .week.is-exam .week-body{border-color:var(--due);background:var(--due-wash)}
+  .week.is-exam .week-dot{
+    background:var(--due);
+    box-shadow:0 0 0 var(--rail) var(--due) inset, 0 0 0 4px var(--paper);
+  }
+  .week.is-exam .week-mark{color:var(--due)}
+  .exam-tag{
+    display:inline-block;
+    font-family:var(--mono);
+    font-size:0.6rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--due);
     margin-bottom:0.4rem;
   }
 
@@ -399,19 +418,21 @@ const COURSE = {
    `links` porte les supports de COURS. Les documents de TD se renseignent
    plus bas, dans TD_DOCS.
 
+   `exam: true` signale une épreuve : le bloc s'affiche en rouge et n'attend
+   ni champ `td` ni supports. Un bloc peut porter `label` au lieu de `week`
+   pour afficher autre chose que « Séance N » — l'épreuve n'est pas numérotée,
+   ce qui garde les numéros de séance alignés sur le syllabus.
+
    Comment écrire les liens :
      PDF          -> un chemin relatif simple :  "slides/01-intro.pdf"
      .md, .ipynb  -> utiliser REPO + "/blob/main/notebooks/02-data.ipynb"
-   GitHub Pages sert les fichiers markdown et les notebooks en texte brut,
-   ce qui est illisible. Le lien REPO ouvre le même fichier sur github.com,
-   où l'un comme l'autre s'affichent correctement.
    ------------------------------------------------------------------------- */
 const SCHEDULE = [
   {
     week: 1,
     date: "2026-08-31",
     topic: "Environnement et anatomie des données",
-    summary: "Prise en main de Colab. Observation, variable, unité statistique. Application : indices de prix.",
+    summary: "Prise en main de Colab. Observation, variable, unité statistique. Une grandeur économique est construite, pas observée.",
     td: "Micro / consommation — Reconstituer l'indice des prix harmonisé français à partir des indices et pondérations publiés par Eurostat. Mesurer ce que change le choix des pondérations.",
     links: [
       { label: "présentation du cours", href: "slides/00-presentation.pdf" },
@@ -422,8 +443,8 @@ const SCHEDULE = [
     week: 2,
     date: "2026-09-07",
     topic: "Chargement, inspection, filtrage",
-    summary: "pandas, lecture de fichiers, et surtout lecture d'un dictionnaire des variables. Application : Enquête Emploi.",
-    td: "Travail — Enquête Emploi (INSEE) : reconstruire le statut BIT à partir de la documentation, calculer un taux de chômage, expliquer l'écart au chiffre officiel.",
+    summary: "pandas, conventions des fichiers français, dictionnaire des variables. Filtrage, .loc et chaînage de méthodes.",
+    td: "Travail — Recensement (INSEE) : reconstruire le statut d'activité à partir de la documentation, calculer un taux de chômage, expliquer l'écart au chiffre BIT.",
     links: [
       { label: "diapositives", href: "slides/02-chargement.pdf" }
     ]
@@ -432,73 +453,77 @@ const SCHEDULE = [
     week: 3,
     date: "2026-09-14",
     topic: "Nettoyage des données",
-    summary: "Valeurs manquantes, doublons, recodages. Chaque décision de nettoyage se justifie. Application : salaires.",
-    td: "Travail / inégalités — Données de salaires : top-coding, salaires nuls, temps partiels mal renseignés. Mesurer l'effet de chaque décision de nettoyage.",
-    links: []
+    summary: "Valeurs manquantes et leurs trois origines, doublons, recodages. Écrire une fonction. Chaque décision se justifie et se documente.",
+    td: "Travail / inégalités — Données de salaires : non-réponses codées, salaires nuls, censure haute. Tenir le journal des décisions et mesurer l'effet de chacune.",
+    links: [
+      { label: "diapositives", href: "slides/03-nettoyage.pdf" }
+    ]
   },
   {
     week: 4,
     date: "2026-09-21",
     topic: "Restructuration et fusion",
-    summary: "groupby, merge, passage long/large, structure de panel. Application : panel Eurostat.",
-    td: "Macro — Panel Eurostat pays × années : fusionner trois sources, passer en format long, produire un tableau pays × décennie.",
-    links: []
+    summary: "groupby, merge et ses pièges, passage long/large, structure de panel. Une fusion ratée ne produit pas d'erreur.",
+    td: "Macro / environnement — Émissions communales de l'ADEME et revenus Filosofi de l'INSEE : fusionner, diagnostiquer les non-appariés, agréger par département.",
+    links: [
+      { label: "diapositives", href: "slides/04-fusion.pdf" }
+    ]
   },
   {
     week: 5,
     date: "2026-09-28",
     topic: "Décrire, comparer, conclure",
-    summary: "Quantiles, points atypiques, pondérations d'enquête. Puis le tableau de comparaison de groupes : écarts-types, intervalles de confiance, test de Welch. Contrôle continu à l'issue de cette séance.",
-    td: "Micro / redistribution — Déciles et indice de Gini. Construire le tableau de comparaison des revenus entre deux groupes avec intervalles de confiance. Refaire sans pondération et mesurer le biais.",
+    summary: "Quantiles, points atypiques, pondérations d'enquête. Puis le tableau de comparaison de groupes : écarts-types, intervalles de confiance, test de Welch.",
+    td: "Micro / redistribution — Déciles et indice de Gini. Construire le tableau de comparaison des revenus entre deux groupes avec intervalles de confiance.",
     links: [
       { label: "diapositives", href: "slides/05-descriptives.pdf" }
     ]
   },
   {
-    week: 6,
+    label: "CC",
     date: "2026-10-05",
-    topic: "Visualisation de données économiques",
-    summary: "Quel graphique pour quelle question, et comment un graphique trompe. Application : courbe de Beveridge.",
-    td: "Travail / macro — Courbe de Beveridge française (DARES) : dater les déplacements de courbe. Puis courbe de Phillips sur données longues.",
+    topic: "Contrôle continu",
+    summary: "Une heure, sur papier, sans machine. Périmètre : séances 1 à 5. Quatre types de questions : lecture de sortie, diagnostic, interprétation économique, code court.",
+    exam: true,
     links: []
   },
   {
-    week7: ,
+    week: 6,
     date: "2026-10-12",
     topic: "Visualisation de données économiques",
-    summary: "Quel graphique pour quelle question, et comment un graphique trompe. Application : courbe de Beveridge.",
+    summary: "Quel graphique pour quelle question, et comment un graphique trompe.",
     td: "Travail / macro — Courbe de Beveridge française (DARES) : dater les déplacements de courbe. Puis courbe de Phillips sur données longues.",
     links: []
   },
   {
-    week: 8,
+    week: 7,
     date: "2026-10-19",
     topic: "Régression en pratique I",
-    summary: "statsmodels, lecture d'une sortie, muettes, écarts-types robustes. Application : équation de Mincer.",
+    summary: "statsmodels, lecture d'une sortie, muettes, écarts-types robustes. Une différence de moyennes est le coefficient d'une régression sur une muette.",
     td: "Travail — Équation de Mincer : rendement de l'éducation, expérience, muette de genre, interaction. Interpréter chaque coefficient en une phrase.",
     links: []
   },
   {
-    week: 9,
+    week: 8,
     date: "2026-11-02",
     topic: "Régression en pratique II",
-    summary: "Logarithmes, interactions, effets fixes, export LaTeX. Application : régression hédonique sur données DVF.",
+    summary: "Logarithmes, interactions, effets fixes, export LaTeX. Ce que les effets fixes absorbent.",
     td: "Micro / immobilier — Régression hédonique sur données DVF, avec effets fixes départementaux puis communaux. Observer le déplacement des coefficients.",
     links: []
   },
   {
-    week: 10,
+    week: 9,
     date: "2026-11-09",
     topic: "Séries temporelles et API",
-    summary: "Dates, import automatique, taux de croissance. Application : rendements et bêta de MEDAF.",
+    summary: "Manipulation des dates, import automatique, taux de croissance, moyennes mobiles. Stationnarité en pratique.",
     td: "Finance — Cours boursiers : rendements, volatilité et son regroupement, bêta de MEDAF. Sensibilité du bêta à la fenêtre d'estimation.",
     links: []
   },
   {
-    week: 11,
+    week: 10,
     date: "2026-11-16",
     topic: "Prédiction, reproductibilité, synthèse",
-    summary: "Ce qui distingue prédire d'expliquer. Traitement d'un sujet d'annale en TD.",
+    summary: "Ce qui distingue prédire d'expliquer. Démonstration commentée d'une régression LASSO. Organisation d'un projet reproductible.",
     td: "Révisions — Traitement d'un sujet de contrôle terminal des années précédentes, corrigé en séance.",
     links: []
   }
@@ -506,7 +531,6 @@ const SCHEDULE = [
 
 /* -------------------------------------------------------------------------
    3. FORMAT DES TRAVAUX DIRIGÉS
-   Trois blocs de texte affichés en haut de la section Travaux dirigés.
    ------------------------------------------------------------------------- */
 const TD_FORMAT = [
   {
@@ -530,13 +554,7 @@ const TD_FORMAT = [
 
 /* -------------------------------------------------------------------------
    3 bis. DOCUMENTS DE TD
-   Un bloc par TD, affiché sous les trois blocs ci-dessus.
    `links` vide : la ligne affiche « à venir ».
-
-   Mêmes règles de liens que dans le calendrier :
-     PDF     -> chemin relatif :  "td/td01-enonce.pdf"
-     .ipynb  -> REPO + "/blob/main/notebooks/td01-indice-prix.ipynb"
-
    Ne mettez le corrigé en ligne qu'après la séance.
    ------------------------------------------------------------------------- */
 const TD_DOCS = [
@@ -548,21 +566,40 @@ const TD_DOCS = [
       { label: "notebook", href: REPO + "/blob/main/notebooks/td01-indice-prix.ipynb" }
     ]
   },
-  { numero: "TD 2",  titre: "Le taux de chômage au sens du BIT",       links: [] },
-  { numero: "TD 3",  titre: "Nettoyer des données de salaires",        links: [] },
-  { numero: "TD 4",  titre: "Construire un panel européen",            links: [] },
-  { numero: "TD 5",  titre: "La distribution des revenus",             links: [] },
-  { numero: "TD 6",  titre: "La courbe de Beveridge",                  links: [] },
-  { numero: "TD 7",  titre: "L'équation de Mincer",                    links: [] },
-  { numero: "TD 8",  titre: "Prix de l'immobilier et effets fixes",    links: [] },
-  { numero: "TD 9",  titre: "Rendements boursiers et bêta de MEDAF",   links: [] },
-  { numero: "TD 10", titre: "Sujet d'annale",                          links: [] }
+  {
+    numero: "TD 2",
+    titre: "Le taux de chômage au sens du BIT",
+    links: [
+      { label: "énoncé", href: "td/td02-enonce.pdf" },
+      { label: "notebook", href: REPO + "/blob/main/notebooks/td02-chomage.ipynb" }
+    ]
+  },
+  {
+    numero: "TD 3",
+    titre: "Nettoyer des données de salaires",
+    links: [
+      { label: "énoncé", href: "td/td03-enonce.pdf" },
+      { label: "notebook", href: REPO + "/blob/main/notebooks/td03-nettoyage.ipynb" }
+    ]
+  },
+  {
+    numero: "TD 4",
+    titre: "Émissions et revenus des communes",
+    links: [
+      { label: "énoncé", href: "td/td04-enonce.pdf" },
+      { label: "notebook", href: REPO + "/blob/main/notebooks/td04-fusion.ipynb" }
+    ]
+  },
+  { numero: "TD 5",  titre: "La distribution des revenus",           links: [] },
+  { numero: "TD 6",  titre: "La courbe de Beveridge",                links: [] },
+  { numero: "TD 7",  titre: "L'équation de Mincer",                  links: [] },
+  { numero: "TD 8",  titre: "Prix de l'immobilier et effets fixes",  links: [] },
+  { numero: "TD 9",  titre: "Rendements boursiers et bêta de MEDAF", links: [] },
+  { numero: "TD 10", titre: "Sujet d'annale",                        links: [] }
 ];
 
 /* -------------------------------------------------------------------------
    4. INFORMATIONS PRATIQUES
-   Texte simple. Le HTML de base — <a href="...">liens</a> et <code>code</code> —
-   fonctionne à l'intérieur des chaînes `body`.
    ------------------------------------------------------------------------- */
 const PRACTICAL = [
   {
@@ -646,16 +683,19 @@ const PRACTICAL = [
   const scheduleEl = document.getElementById("schedule");
   weeks.forEach((w, i) => {
     const li = el("li", "week");
+    if (w.exam) li.classList.add("is-exam");
     if (i === currentIndex) li.classList.add("is-now");
     else if (currentIndex > -1 && i < currentIndex) li.classList.add("is-past");
     else if (currentIndex === -1 && now > w.start) li.classList.add("is-past");
 
+    const intitule = w.label ? w.label : "Séance " + w.week;
     const mark = el("div", "week-mark",
-      "Séance " + w.week + "<span class='week-dot'></span>" + fmtDate.format(w.start));
+      escapeHtml(intitule) + "<span class='week-dot'></span>" + fmtDate.format(w.start));
     li.appendChild(mark);
 
     const body = el("div", "week-body");
-    if (i === currentIndex) body.appendChild(el("span", "now-tag", "Cette semaine"));
+    if (w.exam) body.appendChild(el("span", "exam-tag", "Épreuve"));
+    else if (i === currentIndex) body.appendChild(el("span", "now-tag", "Cette semaine"));
     body.appendChild(el("h3", null, escapeHtml(w.topic)));
     if (w.summary) body.appendChild(el("p", null, escapeHtml(w.summary)));
 
@@ -718,10 +758,17 @@ const PRACTICAL = [
   const mainEl = document.getElementById("status-main");
   const subEl = document.getElementById("status-sub");
 
+  const prochaineEpreuve = weeks.find(w => w.exam && w.start >= now);
+
   if (currentIndex > -1) {
     const w = weeks[currentIndex];
-    mainEl.textContent = "Séance " + w.week + " — " + w.topic;
-    if (w.td) subEl.textContent = "TD cette semaine";
+    mainEl.textContent = (w.label ? w.label : "Séance " + w.week) + " — " + w.topic;
+    if (w.exam) {
+      statusEl.classList.add("is-exam");
+      subEl.textContent = "Épreuve cette semaine";
+    } else if (w.td) {
+      subEl.textContent = "TD cette semaine";
+    }
   } else if (weeks.length && now < weeks[0].start) {
     statusEl.classList.add("is-pre");
     const d = daysBetween(now, weeks[0].start);
@@ -730,6 +777,13 @@ const PRACTICAL = [
   } else {
     statusEl.classList.add("is-pre");
     mainEl.textContent = "Les enseignements du semestre sont terminés.";
+  }
+
+  if (prochaineEpreuve && currentIndex > -1 && !weeks[currentIndex].exam) {
+    const d = daysBetween(now, prochaineEpreuve.start);
+    if (d > 0 && d <= 21) {
+      subEl.textContent = "Contrôle continu dans " + d + " jours";
+    }
   }
 
   /* ---- pied de page ---- */
