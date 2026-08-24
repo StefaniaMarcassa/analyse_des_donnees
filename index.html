@@ -308,6 +308,13 @@
   .td-doc-links a:hover{background:var(--ink);border-color:var(--ink);color:var(--card)}
   .td-doc-vide{font-family:var(--mono);font-size:0.72rem;color:var(--ink-soft);opacity:0.7}
 
+  .td-doc.is-optionnel{
+    background:transparent;
+    border-style:dashed;
+  }
+  .td-doc.is-optionnel .td-doc-num{color:var(--ink-soft);opacity:0.8}
+  .td-doc.is-optionnel .td-doc-titre{font-weight:500}
+
   /* ---------- blocs de texte ---------- */
   .cols{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr))}
   .cols h3{font-family:var(--sans);font-weight:600;font-size:1rem;margin:0 0 0.5rem;letter-spacing:-0.01em}
@@ -555,6 +562,7 @@ const TD_FORMAT = [
 /* -------------------------------------------------------------------------
    3 bis. DOCUMENTS DE TD
    `links` vide : la ligne affiche « à venir ».
+   `optionnel: true` : la ligne s'affiche en pointillés, hors progression du cours.
    Ne mettez le corrigé en ligne qu'après la séance.
    ------------------------------------------------------------------------- */
 const TD_DOCS = [
@@ -595,7 +603,15 @@ const TD_DOCS = [
   { numero: "TD 7",  titre: "L'équation de Mincer",                  links: [] },
   { numero: "TD 8",  titre: "Prix de l'immobilier et effets fixes",  links: [] },
   { numero: "TD 9",  titre: "Rendements boursiers et bêta de MEDAF", links: [] },
-  { numero: "TD 10", titre: "Sujet d'annale",                        links: [] }
+  { numero: "TD 10", titre: "Sujet d'annale",                        links: [] },
+  {
+    numero: "Bonus",
+    titre: "La régression LASSO — facultatif, non noté, hors séance",
+    optionnel: true,
+    links: [
+      { label: "notebook", href: REPO + "/blob/main/notebooks/facultatif-lasso.ipynb" }
+    ]
+  }
 ];
 
 /* -------------------------------------------------------------------------
@@ -727,6 +743,7 @@ const PRACTICAL = [
   const tdDocsEl = document.getElementById("td-docs");
   TD_DOCS.forEach(t => {
     const li = el("li", "td-doc");
+    if (t.optionnel) li.classList.add("is-optionnel");
     li.appendChild(el("span", "td-doc-num", escapeHtml(t.numero)));
     li.appendChild(el("span", "td-doc-titre", escapeHtml(t.titre)));
 
