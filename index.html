@@ -16,15 +16,23 @@
 
 <style>
   :root{
-    --paper:#EEF1F6;
+    /* Charte graphique CY Cergy Paris Université (mars 2021)
+       Pantone 446 #3D4543 · Pantone 305 #54C9E8 · Pantone 102 #FFE700
+       Pantone 369 #65B32E (couleur de fusion) · Pantone 485 #E2162F */
+    --cy-446:#3D4543;
+    --cy-bleu:#54C9E8;
+    --cy-jaune:#FFE700;
+    --cy-vert:#65B32E;
+
+    --paper:#F1F3F3;
     --card:#FFFFFF;
-    --ink:#0F1A2E;
-    --ink-soft:#55637C;
-    --rule:#D2D9E4;
-    --now:#0C6E5C;
-    --now-wash:#E2F0EC;
-    --due:#9E2318;
-    --due-wash:#FBEAE7;
+    --ink:#3D4543;
+    --ink-soft:#6E7574;
+    --rule:#D7DBDA;
+    --now:#65B32E;
+    --now-wash:#EFF7E7;
+    --due:#E2162F;
+    --due-wash:#FCEAEC;
 
     --sans:"Archivo",system-ui,sans-serif;
     --serif:"Source Serif 4",Georgia,serif;
@@ -209,7 +217,7 @@
     display:block;
     margin-bottom:0.2rem;
   }
-  .week.is-now .week-td{border-top-color:#BFD9D2}
+  .week.is-now .week-td{border-top-color:#C4E0A9}
 
   .week-links{
     display:flex;
@@ -643,7 +651,8 @@ const PRACTICAL = [
   },
   {
     heading: "Évaluation",
-    body: `Contrôle continu 50 %, contrôle terminal 50 %. Détails dans le
+    body: `Contrôle continu 50 %, contrôle terminal 50 %. Les deux épreuves se tiennent
+     sur papier, sans machine. Détails dans le
      <a href="${REPO}/blob/main/syllabus.md">syllabus</a>.`
   }
 ];
