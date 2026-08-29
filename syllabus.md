@@ -197,10 +197,24 @@ Si vous préférez travailler en local (Anaconda, VS Code), c'est possible mais 
 
 ## Bibliographie
 
-- Alberto Cairo, *How Charts Lie*, Norton, 2019 — sur les graphiques honnêtes.
-- Angrist & Pischke, *Mastering 'Metrics*, Princeton University Press, 2014 — pour le rappel des méthodes.
-- Documentation `pandas` : [pandas.pydata.org/docs](https://pandas.pydata.org/docs/) — à consulter en réflexe, pas en dernier recours.
-- Documentation `statsmodels` : [statsmodels.org](https://www.statsmodels.org/)
+Aucun manuel ne couvre exactement ce cours. Les références ci-dessous sont toutes gratuites et en accès libre ; aucune n'est à acheter.
+
+### Pour apprendre Python
+
+- **Ewen Gallic, *Python pour les économistes*, AMSE** — [egallic.fr](https://egallic.fr/Enseignement/Python/) — notes de cours françaises, avec un exercice à la fin de chaque chapitre. Le chapitre sur `pandas` recouvre nos séances 2 à 4. Écrit pour une installation locale : ignorez les passages sur Anaconda et Spyder, tout fonctionne sur Colab.
+- **Arthur Turrell, *Coding for Economists*** — [aeturrell.github.io/coding-for-economists](https://aeturrell.github.io/coding-for-economists/) — plus complet et plus récent, en anglais. La référence à garder après ce cours.
+- **Documentation `pandas`** : [pandas.pydata.org/docs](https://pandas.pydata.org/docs/) — à consulter en réflexe, pas en dernier recours. Savoir y chercher est une compétence du cours.
+- **Documentation `statsmodels`** : [statsmodels.org](https://www.statsmodels.org/)
+
+### Pour comprendre ce qu'on fait des données
+
+- **Alberto Cairo, *How Charts Lie*, Norton, 2019** — sur les graphiques honnêtes. Se lit sans aucune connaissance technique.
+- **Angrist & Pischke, *Mastering 'Metrics*, Princeton University Press, 2014** — pour le rappel des méthodes, en complément du cours d'économétrie.
+- **Gentzkow & Shapiro, *Code and Data for the Social Sciences: A Practitioner's Guide*** — court, gratuit, et consacré à l'organisation du code et des données. À lire avant le stage.
+
+### Sources et emprunts
+
+Ce cours emprunte à plusieurs enseignements en accès libre, qu'il est normal de citer : les notes d'Ewen Gallic (AMSE), le cours *Python pour la data science* de Lino Galiana (ENSAE, licence CC BY-NC-SA), et *Data Science for Economists* de Grant McDermott (University of Oregon). Les erreurs qui subsistent sont les miennes.
 
 ---
 
