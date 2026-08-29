@@ -19,17 +19,23 @@
 5. **Estimer et lire une régression** en pratique : spécification, écarts-types robustes, variables muettes, effets fixes, export d'un tableau publiable.
 6. **Rendre un travail reproductible**, c'est-à-dire qu'un tiers puisse ré-exécuter votre code et retrouver vos résultats.
 
-**Ce que le cours n'est pas.** Ce n'est pas un cours d'économétrie théorique : les propriétés des estimateurs sont supposées connues du cours d'économétrie. C'est un cours de *mise en œuvre*, où la difficulté réside dans les données, pas dans les formules.
+**Ce que le cours n'est pas.** Ce n'est pas un cours d'économétrie théorique : aucune propriété d'estimateur n'y est démontrée. C'est un cours de *mise en œuvre*, où la difficulté réside dans les données, pas dans les formules.
+
+On estime couramment qu'un économiste consacre environ un tiers de son temps de recherche empirique à obtenir et nettoyer ses données. Ce tiers n'est enseigné nulle part ailleurs dans le cursus.
 
 **Une mise en garde d'emblée.** Une régression ne mesure pas un effet causal. Elle mesure une association conditionnelle aux variables incluses. Toute la difficulté du métier tient dans l'écart entre les deux, et le cours y revient à chaque séance du Bloc 2.
 
 ---
 
-## Prérequis
+## Prérequis et articulation
 
-- Statistiques descriptives et inférentielles (L2)
-- Économétrie 1 : modèle linéaire, MCO, tests d'hypothèses
+- Statistiques descriptives (L1), Probabilités et Analyse statistique (L2)
+- Informatique (L2)
 - Aucun prérequis en programmation
+
+**Le cours d'Économétrie est suivi en parallèle, au même semestre.** Les séances de régression de ce cours (7 et 8, mi-octobre) supposent que les moindres carrés y aient été introduits. Ce cours n'en démontre aucune propriété : il en montre la mise en œuvre.
+
+**Ce cours prépare directement au stage obligatoire du semestre 6.** Nettoyer un fichier mal formé, comprendre ce que mesure une variable, produire un tableau défendable : c'est ce qu'on demande à un stagiaire dès la première semaine.
 
 ---
 
