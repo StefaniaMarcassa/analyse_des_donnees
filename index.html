@@ -574,12 +574,15 @@ const SCHEDULE = [
     ]
   },
   {
-    week: 11,
+week: 11,
     date: "2026-11-16",
     topic: "Arbres, forêts aléatoires et synthèse",
     summary: "Arbre de décision et forêt aléatoire sur les données de la séance 9 — mêmes variables, même découpage, mêmes repères. Ce qu'un modèle souple apporte, et ce qu'il retire. Projet reproductible.",
     td: "Révisions.",
-    links: []
+    links: [
+      { label: "diapositives", href: "slides/10-arbres-forets.pdf" },
+      { label: "notebook du cours", href: REPO + "/blob/main/notebooks/cm10-arbres-forets.ipynb" }
+    ]
   }
 ];
 
@@ -684,18 +687,14 @@ const TD_DOCS = [
       { label: "énoncé", href: "td/td09-enonce.pdf" },
       { label: "notebook", href: REPO + "/blob/main/notebooks/td09-prevision.ipynb" },
       { label: "notebook corrigé", href: REPO + "/blob/main/notebooks/td09-prevision-corrige.ipynb" } 
-         ] },
-
-     
-  { numero: "TD 10", titre: "Sujet d'annale",                        links: [] },
-  {
-    numero: "Bonus",
-    titre: "La régression LASSO — facultatif, non noté, hors séance",
-    optionnel: true,
-    links: [
-      { label: "notebook", href: REPO + "/blob/main/notebooks/facultatif-lasso.ipynb" }
-    ]
-  }
+         ] 
+  },   
+  { numero: "TD 10", titre: "Révision",                        
+         links: [
+     { label: "énoncé", href: "td/td10-enonce.pdf" },
+     { label: "notebook", href: REPO + "/blob/main/notebooks/td10-revision.ipynb" }        
+         ] 
+  },
 ];
 
 /* -------------------------------------------------------------------------
