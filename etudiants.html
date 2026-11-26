@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L3 ECO · Challenge Data 2026</title>
+<meta name="description" content="Challenge Data L3 Économie et Gestion : programme, livrables, thèmes et évaluation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+<!-- Page statique : tout le contenu est dans le HTML ci-dessous.
+     Même charte graphique que index.html (CY Cergy Paris Université). -->
+
+<style>
+  :root{
+    --cy-446:#3D4543;
+    --cy-bleu:#54C9E8;
+    --cy-jaune:#FFE700;
+    --cy-vert:#65B32E;
+
+    --paper:#F1F3F3;
+    --card:#FFFFFF;
+    --ink:#3D4543;
+    --ink-soft:#6E7574;
+    --rule:#D7DBDA;
+    --now:#65B32E;
+    --now-wash:#EFF7E7;
+    --due:#E2162F;
+    --due-wash:#FCEAEC;
+
+    --sans:"Archivo",system-ui,sans-serif;
+    --serif:"Source Serif 4",Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+
+    --gap:clamp(1.25rem,3vw,2rem);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:clamp(1rem,0.97rem + 0.15vw,1.0625rem);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:64rem;margin:0 auto;padding:0 var(--gap)}
+
+  a{color:inherit}
+  a:focus-visible{outline:2px solid var(--now);outline-offset:3px;border-radius:2px}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    letter-spacing:0.11em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0;
+  }
+  .eyebrow a{text-decoration:none}
+  .eyebrow a:hover{text-decoration:underline}
+
+  /* ---------- en-tête ---------- */
+  .masthead{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(1.5rem,3vw,2.5rem)}
+  .masthead h1{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:clamp(2rem,1.3rem + 3.4vw,3.5rem);
+    letter-spacing:-0.032em;
+    line-height:1.02;
+    margin:0.55rem 0 0;
+    max-width:20ch;
+  }
+  .facts{
+    display:flex;flex-wrap:wrap;gap:0.4rem 2rem;
+    margin:1.5rem 0 0;padding:0;list-style:none;
+    font-family:var(--mono);font-size:0.8rem;color:var(--ink-soft);
+  }
+  .facts b{
+    display:block;font-weight:500;font-size:0.66rem;
+    letter-spacing:0.11em;text-transform:uppercase;
+    color:var(--ink);opacity:0.45;margin-bottom:0.15rem;
+  }
+
+  /* ---------- bandeau ---------- */
+  .status{
+    background:var(--card);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--now);
+    padding:1.15rem 1.35rem;
+  }
+  .status-main{font-family:var(--sans);font-weight:600;font-size:1.05rem;letter-spacing:-0.01em;margin:0}
+  .status-sub{margin:0.25rem 0 0;color:var(--ink-soft);font-size:0.95rem}
+
+  /* ---------- sommaire ---------- */
+  .toc{
+    display:flex;flex-wrap:wrap;gap:0.5rem;
+    margin:1.25rem 0 0;padding:0;list-style:none;
+  }
+  .toc a{
+    font-family:var(--mono);font-size:0.74rem;text-decoration:none;
+    padding:0.32rem 0.6rem;border:1px solid var(--rule);background:var(--card);
+    transition:background 0.14s ease,border-color 0.14s ease;
+  }
+  .toc a:hover{background:var(--ink);border-color:var(--ink);color:var(--card)}
+
+  /* ---------- sections ---------- */
+  section{padding:clamp(2.75rem,6vw,4.25rem) 0}
+  section + section{border-top:1px solid var(--rule)}
+
+  h2{
+    font-family:var(--sans);font-weight:600;font-size:1.5rem;
+    letter-spacing:-0.02em;margin:0.4rem 0 1.75rem;
+  }
+  h3{
+    font-family:var(--sans);font-weight:600;font-size:1.12rem;
+    letter-spacing:-0.012em;margin:2rem 0 0.75rem;
+  }
+  h3:first-child{margin-top:0}
+  p{max-width:75ch}
+  .lede{color:var(--ink-soft);margin:-1rem 0 2rem}
+
+  main ul, main ol{max-width:75ch;padding-left:1.25rem}
+  main li{margin:0.25rem 0}
+  main section a{color:var(--now);text-underline-offset:0.15em}
+
+  code{font-family:var(--mono);font-size:0.85em;background:var(--card);padding:0.1em 0.35em;border:1px solid var(--rule)}
+
+  /* ---------- cartes ---------- */
+  .cols{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr))}
+  .card{background:var(--card);border:1px solid var(--rule);padding:1.15rem 1.3rem}
+  .card h3{margin:0 0 0.5rem;font-size:1rem}
+  .card p,.card ul{margin:0 0 0.5rem;color:var(--ink-soft)}
+  .card .tag{
+    display:inline-block;font-family:var(--mono);font-size:0.6rem;
+    letter-spacing:0.12em;text-transform:uppercase;color:var(--now);margin-bottom:0.4rem;
+  }
+  .card.is-key{border-left:3px solid var(--due)}
+  .card.is-key .tag{color:var(--due)}
+
+  /* ---------- tableaux ---------- */
+  .table-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--rule)}
+  table{border-collapse:collapse;width:100%;font-size:0.93rem}
+  th,td{text-align:left;vertical-align:top;padding:0.6rem 0.85rem;border-bottom:1px solid var(--rule)}
+  tr:last-child td{border-bottom:none}
+  th{
+    font-family:var(--mono);font-weight:500;font-size:0.66rem;
+    letter-spacing:0.11em;text-transform:uppercase;color:var(--ink-soft);
+    background:var(--paper);
+  }
+  td.time{font-family:var(--mono);font-size:0.8rem;white-space:nowrap}
+  td.pts{font-family:var(--mono);text-align:right;white-space:nowrap}
+  tr.milestone td{background:var(--now-wash)}
+  tr.deadline td{background:var(--due-wash)}
+  tr.total td{font-weight:600}
+
+  /* ---------- liste à cocher ---------- */
+  .check{list-style:none;padding-left:0}
+  .check li{position:relative;padding-left:1.6rem}
+  .check li::before{
+    content:"";position:absolute;left:0;top:0.35em;
+    width:0.9rem;height:0.9rem;border:1.5px solid var(--ink-soft);border-radius:2px;
+  }
+
+  pre{
+    background:var(--card);border:1px solid var(--rule);padding:1rem 1.15rem;
+    font-family:var(--mono);font-size:0.78rem;line-height:1.55;overflow-x:auto;
+    white-space:pre;max-width:100%;
+  }
+
+  footer{
+    border-top:1px solid var(--rule);padding:2rem 0 3rem;
+    font-family:var(--mono);font-size:0.74rem;color:var(--ink-soft);
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;animation:none !important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="eyebrow"><a href="https://stefaniamarcassa.github.io/analyse_des_donnees/">L3 ECO · Analyse des données</a></p>
+    <h1>Challenge Data 2026</h1>
+    <ul class="facts">
+      <li><b>Sur place</b>Jeudi 3 et vendredi 4 décembre</li>
+      <li><b>À distance</b>Lundi 30 nov. et mardi 1<sup>er</sup> déc.</li>
+      <li><b>Crédits</b>1 ECTS</li>
+      <li><b>Outils</b>Python (Colab) + Canva</li>
+    </ul>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="status" role="status">
+    <p class="status-main">Votre groupe vous est communiqué par mail. Votre thème vous sera donné au lancement, pas avant.</p>
+    <p class="status-sub">Deux formats selon votre promotion : sur place les 3 et 4 décembre, ou à la maison les 30 novembre et 1<sup>er</sup> décembre. Tout le reste est commun.</p>
+  </div>
+  <ul class="toc" aria-label="Sommaire">
+    <li><a href="#principe">Principe</a></li>
+    <li><a href="#formats">Deux formats</a></li>
+    <li><a href="#avant">Avant de commencer</a></li>
+    <li><a href="#programme">Programme</a></li>
+    <li><a href="#livrables">Livrables</a></li>
+    <li><a href="#ia">IA</a></li>
+    <li><a href="#evaluation">Évaluation</a></li>
+    <li><a href="#carnet">Carnet de bord</a></li>
+  </ul>
+</div>
+
+<main>
+
+  <!-- ===================================================== PRINCIPE -->
+  <section id="principe">
+    <div class="wrap">
+      <h2>Le principe</h2>
+      <p>En une journée, votre groupe répond à une question économique avec des données publiques
+      réelles. Vous travaillez en Python sur Colab, comme en TD. Vous présentez vos résultats sur un
+      poster, puis devant un jury pour les groupes qui travaillent sur place.</p>
+      <p>Les groupes sont formés au sein de chaque spécialité et comptent de 3 à 8 étudiants selon la
+      promotion. Le thème vous est imposé ; la question, c'est vous qui la formulez.</p>
+
+      <h3>Les rôles dans le groupe</h3>
+      <div class="cols">
+        <div class="card">
+          <span class="tag">1 personne</span>
+          <h3>Chef·fe de projet</h3>
+          <p>Coordonne le groupe, tient le carnet de bord, vérifie que le notebook s'exécute de bout en bout.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Le plus gros du groupe</span>
+          <h3>Data analystes</h3>
+          <p>Chargent, nettoient et fusionnent les données. Produisent tableaux et graphiques en Python.</p>
+        </div>
+        <div class="card">
+          <span class="tag">1 à 3 personnes</span>
+          <h3>Analystes économiques</h3>
+          <p>Formulent la question, cherchent 2 ou 3 références, interprètent les résultats, rédigent les textes.</p>
+        </div>
+        <div class="card">
+          <span class="tag">1 à 2 personnes</span>
+          <h3>Graphistes</h3>
+          <p>Conçoivent le poster, hiérarchisent l'information, préparent la soutenance.</p>
+        </div>
+      </div>
+      <p style="margin-top:1rem;color:var(--ink-soft)">Les rôles organisent le travail sans le cloisonner, et
+      dans un petit groupe une même personne en tient deux. Tout le groupe doit pouvoir expliquer la question
+      et le graphique principal.</p>
+    </div>
+  </section>
+
+  <!-- ===================================================== FORMATS -->
+  <section id="formats">
+    <div class="wrap">
+      <h2>Deux formats</h2>
+      <p class="lede">Le travail demandé est le même. Seuls le calendrier, le lieu et la soutenance changent.</p>
+      <div class="cols">
+        <div class="card">
+          <span class="tag">Sur place</span>
+          <h3>Jeudi 3 et vendredi 4 décembre</h3>
+          <p>Journée de travail encadrée en salle le jeudi, soutenances en amphi le vendredi matin.
+          Présence obligatoire, émargée à chaque demi-journée.</p>
+          <p><b>Thème communiqué</b> au lancement, jeudi matin en amphi.</p>
+        </div>
+        <div class="card">
+          <span class="tag">À la maison</span>
+          <h3>Lundi 30 novembre et mardi 1<sup>er</sup> décembre</h3>
+          <p>Devoir de groupe à distance, sans séance en amphi et sans soutenance. Vous vous organisez
+          comme vous le souhaitez sur les deux jours.</p>
+          <p><b>Thème communiqué</b> lundi 30 novembre au matin, par mail.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== AVANT -->
+  <section id="avant">
+    <div class="wrap">
+      <h2>Avant de commencer</h2>
+      <p class="lede">Comptez une heure, en groupe, en ligne ou sur place. Vous ne pouvez pas préparer le fond :
+      le thème n'est donné qu'au lancement. Vous pouvez en revanche arriver avec un groupe qui se connaît et des
+      outils qui fonctionnent, et c'est une heure gagnée sur les autres.</p>
+      <ul class="check">
+        <li>Retrouver votre groupe dans le fichier envoyé par mail, et créer une conversation commune.</li>
+        <li>Lire cette page en entier : programme, livrables, grille d'évaluation, modèle de carnet de bord.</li>
+        <li>Vous répartir les rôles.</li>
+        <li>Créer un compte Canva et vérifier que Colab s'ouvre sur votre compte.</li>
+        <li>Ouvrir le modèle de carnet de bord dans un document partagé entre vous.</li>
+        <li>Pour les groupes sur place : venir avec des ordinateurs chargés, au moins quatre par groupe.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================================================== PROGRAMME -->
+  <section id="programme">
+    <div class="wrap">
+      <h2>Programme</h2>
+
+      <h3>Groupes sur place — jeudi 3 décembre, journée de travail</h3>
+      <p class="lede">La présence est obligatoire et émargée à chaque demi-journée.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Heure</th><th>Lieu</th><th>Activité</th></tr></thead>
+          <tbody>
+            <tr><td class="time">8h45</td><td>Amphi Scelles</td><td>Accueil, émargement</td></tr>
+            <tr class="milestone"><td class="time">9h00 – 9h45</td><td>Amphi Scelles</td><td><b>Lancement :</b> thèmes communiqués, règles, livrables, grille. Démonstration : d'un fichier data.gouv à un graphique exporté.</td></tr>
+            <tr><td class="time">10h00 – 12h30</td><td>Salles</td><td>Question choisie, chargement, nettoyage documenté, fusion avec une seconde source</td></tr>
+            <tr class="milestone"><td class="time">12h30</td><td>Salles</td><td><b>Jalon 1 :</b> question validée par l'encadrant, données fusionnées</td></tr>
+            <tr><td class="time">13h30 – 15h30</td><td>Salles</td><td>Tableau de comparaison de groupes, graphiques finaux. Les graphistes montent le poster.</td></tr>
+            <tr><td class="time">15h30 – 16h30</td><td>Salles</td><td>Assemblage du poster, revue critique du brouillon par une IA</td></tr>
+            <tr class="milestone"><td class="time">16h30 – 17h15</td><td>Salles</td><td><b>Jalon 2 :</b> répétition minutée devant l'encadrant</td></tr>
+            <tr class="deadline"><td class="time">21h00</td><td>Moodle</td><td><b>Dépôt définitif :</b> poster, notebook, carnet de bord</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Groupes sur place — vendredi 4 décembre, soutenances</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Heure</th><th>Lieu</th><th>Activité</th></tr></thead>
+          <tbody>
+            <tr><td class="time">9h30</td><td>Amphi Scelles</td><td>Accueil, ordre de passage affiché</td></tr>
+            <tr><td class="time">9h45 – 11h05</td><td>Amphi Scelles</td><td>Soutenances, première moitié des groupes</td></tr>
+            <tr><td class="time">11h05 – 11h20</td><td>Amphi Scelles</td><td>Pause</td></tr>
+            <tr><td class="time">11h20 – 12h40</td><td>Amphi Scelles</td><td>Soutenances, seconde moitié des groupes</td></tr>
+            <tr><td class="time">12h40 – 13h00</td><td>Amphi Scelles</td><td>Vote du public sur Wooclap ; délibération du jury</td></tr>
+            <tr class="milestone"><td class="time">13h00 – 13h15</td><td>Amphi Scelles</td><td>Palmarès</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:0.75rem;color:var(--ink-soft)">Le rythme est serré : soyez prêts à enchaîner, poster
+      déjà chargé sur la machine de l'amphi. Le jury pose ses questions à la volée, pas systématiquement à chaque groupe.</p>
+
+      <h3>Groupes à distance — lundi 30 novembre et mardi 1<sup>er</sup> décembre</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Moment</th><th>Activité</th></tr></thead>
+          <tbody>
+            <tr class="milestone"><td class="time">Lundi, matin</td><td><b>Lancement :</b> vous recevez votre thème et le jeu de données par mail</td></tr>
+            <tr><td class="time">Lundi</td><td>Question choisie, chargement, nettoyage documenté, fusion avec une seconde source</td></tr>
+            <tr><td class="time">Mardi</td><td>Tableau de comparaison de groupes, graphiques finaux, assemblage du poster, revue critique du brouillon par une IA</td></tr>
+            <tr class="deadline"><td class="time">Mardi, 21h00</td><td><b>Dépôt définitif :</b> poster, notebook, carnet de bord</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:0.75rem;color:var(--ink-soft)">Pas de soutenance, et donc pas de jalon imposé : fixez-vous
+      les vôtres. Écrivez-moi si un accès bloque — Colab, Canva — avant lundi plutôt que mardi soir.</p>
+    </div>
+  </section>
+
+  <!-- ===================================================== LIVRABLES -->
+  <section id="livrables">
+    <div class="wrap">
+      <h2>Ce que vous rendez</h2>
+      <p class="lede">Trois fichiers, déposés à 21h le dernier jour de votre format. Nommez-les avec le code de
+      votre groupe : <code>G07_poster.pdf</code>, <code>G07_notebook.ipynb</code>, <code>G07_carnet.pdf</code>
+      pour les groupes sur place, <code>D3_poster.pdf</code> et ainsi de suite pour les groupes à distance.
+      Un seul dépôt par groupe, et aucun envoi par mail.</p>
+
+      <div class="cols">
+        <div class="card is-key">
+          <span class="tag">Obligatoire</span>
+          <h3>1. Le notebook Colab</h3>
+          <p>Il s'exécute sans erreur avec « Exécuter tout ». Il contient, dans l'ordre :</p>
+          <ol>
+            <li>la question, en une phrase ;</li>
+            <li>les données : source, lien, unité, période, variables retenues ;</li>
+            <li>chaque décision de nettoyage, avec le nombre de lignes avant et après ;</li>
+            <li>une fusion avec une seconde source, avec contrôle des lignes perdues ;</li>
+            <li>un tableau de comparaison de groupes (moyennes, intervalles de confiance, test de Welch) ;</li>
+            <li>au moins 3 graphiques <code>matplotlib</code> ou <code>seaborn</code> ;</li>
+            <li>les limites.</li>
+          </ol>
+        </div>
+        <div class="card is-key">
+          <span class="tag">Obligatoire</span>
+          <h3>2. Le poster</h3>
+          <ul>
+            <li>A1 portrait, en PDF. Pas d'impression.</li>
+            <li>Titre sous forme de question, contexte, données, 2 à 4 graphiques, résultat principal en une phrase, limites, sources, noms.</li>
+            <li>Un QR code vers le notebook partagé en lecture seule.</li>
+            <li><b>Tous les chiffres et graphiques sortent du notebook.</b> Canva sert à la mise en page, pas à faire des graphiques.</li>
+          </ul>
+        </div>
+        <div class="card is-key">
+          <span class="tag">Obligatoire</span>
+          <h3>3. Le carnet de bord</h3>
+          <p>Rempli au fil du travail, avec le journal IA. Il doit dire précisément qui a fait quoi.
+          Le modèle est <a href="#carnet">plus bas</a>.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Groupes sur place uniquement</span>
+          <h3>4. La soutenance</h3>
+          <p>5 minutes sur le poster projeté, 2 à 4 orateurs. Dites la question, montrez le graphique
+          principal, donnez le résultat en une phrase, citez une limite. Le jury peut ensuite poser une question.</p>
+        </div>
+      </div>
+
+      <h3>Une bonne question</h3>
+      <p>Une bonne question est précise, et vos données peuvent y répondre. Par exemple : « Les stations-service
+      rurales vendent-elles le gazole plus cher que les stations urbaines ? » plutôt que « Le prix des carburants en France ».</p>
+      <p>Vos données montrent des associations, pas des effets. Écrivez « les communes où X est plus élevé ont aussi
+      un Y plus élevé », pas « X augmente Y ».</p>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       THÈMES PAR SPÉCIALITÉ — masqué pour l'instant.
+       Les thèmes sont communiqués au lancement : lundi matin par mail pour
+       les groupes à distance, jeudi matin en amphi pour les groupes sur place.
+       Pour réafficher cette section, retirer ce commentaire et remettre
+       l'entrée <li><a href="#themes">Thèmes</a></li> dans le sommaire.
+       Le contenu d'origine est conservé dans le dépôt, fichier themes.html.
+       ===================================================================== -->
+
+  <!-- ===================================================== IA -->
+  <section id="ia">
+    <div class="wrap">
+      <h2>L'IA</h2>
+      <p class="lede">Comme dans le cours, l'IA est autorisée et attendue. On évalue ce que vous en faites.</p>
+      <div class="cols">
+        <div class="card">
+          <h3>Vous pouvez</h3>
+          <ul>
+            <li>écrire ou déboguer du code ;</li>
+            <li>comprendre un dictionnaire des variables ou un message d'erreur ;</li>
+            <li>reformuler une question, relire vos textes ;</li>
+            <li>demander à une IA les 3 faiblesses de votre brouillon de poster.</li>
+          </ul>
+        </div>
+        <div class="card is-key">
+          <span class="tag">Règles</span>
+          <h3>Vous devez</h3>
+          <ul>
+            <li>commenter vous-mêmes chaque cellule de code ;</li>
+            <li>ne jamais faire inventer des données ;</li>
+            <li>ne citer que des références que vous avez ouvertes et lues ;</li>
+            <li>tenir le journal IA : 3 entrées au moins, dont une erreur de l'IA que vous avez repérée.</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:1rem">À la soutenance, le jury interroge un membre du groupe au hasard sur une ligne
+      de code ou une décision du notebook. Une ligne que personne ne sait expliquer coûte des points. Pour les
+      groupes à distance, c'est le carnet de bord qui tient ce rôle : il doit nommer qui a écrit quoi.</p>
+    </div>
+  </section>
+
+  <!-- ===================================================== ÉVALUATION -->
+  <section id="evaluation">
+    <div class="wrap">
+      <h2>Évaluation</h2>
+      <p class="lede">Note collective sur 20. Une absence non justifiée à une demi-journée retire 2 points à
+      l'étudiant concerné. Les deux grilles évaluent le même travail : celle des groupes à distance redistribue
+      simplement les points de la soutenance, qui n'a pas lieu.</p>
+
+      <h3>Groupes sur place</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Critère</th><th>Ce que l'on regarde</th><th style="text-align:right">Points</th></tr></thead>
+        <tbody>
+          <tr><td>Question et rigueur</td><td>Question précise, à laquelle les données répondent. Nettoyage justifié. Pas d'abus causal. Limites identifiées.</td><td class="pts">5</td></tr>
+          <tr><td>Graphiques</td><td>Le bon graphique pour la question. Axes et échelles honnêtes. Source indiquée. Message lisible en 5 secondes.</td><td class="pts">4</td></tr>
+          <tr><td>Poster</td><td>Hiérarchie de l'information, lisible à distance, compréhensible sans l'oral.</td><td class="pts">2</td></tr>
+          <tr><td>Soutenance</td><td>5 minutes tenues, message clair, réponse juste à la question sur le code.</td><td class="pts">3</td></tr>
+          <tr><td>Notebook</td><td>S'exécute de bout en bout. Fusion contrôlée. Tableau de comparaison. Code commenté. Chiffres du poster retrouvés.</td><td class="pts">4</td></tr>
+          <tr><td>Carnet de bord</td><td>Jalons renseignés, répartition des tâches, journal IA complet.</td><td class="pts">2</td></tr>
+          <tr class="total"><td>Total</td><td></td><td class="pts">20</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Groupes à distance</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Critère</th><th>Ce que l'on regarde</th><th style="text-align:right">Points</th></tr></thead>
+        <tbody>
+          <tr><td>Question et rigueur</td><td>Question précise, à laquelle les données répondent. Nettoyage justifié. Pas d'abus causal. Limites identifiées.</td><td class="pts">5</td></tr>
+          <tr><td>Graphiques</td><td>Le bon graphique pour la question. Axes et échelles honnêtes. Source indiquée. Message lisible en 5 secondes.</td><td class="pts">4</td></tr>
+          <tr><td>Poster</td><td>Hiérarchie de l'information, lisible à distance, compréhensible sans l'oral.</td><td class="pts">3</td></tr>
+          <tr><td>Notebook</td><td>S'exécute de bout en bout. Fusion contrôlée. Tableau de comparaison. Code commenté. Chiffres du poster retrouvés.</td><td class="pts">6</td></tr>
+          <tr><td>Carnet de bord</td><td>Jalons renseignés, répartition des tâches, journal IA complet.</td><td class="pts">2</td></tr>
+          <tr class="total"><td>Total</td><td></td><td class="pts">20</td></tr>
+        </tbody>
+      </table></div>
+      <p style="margin-top:0.75rem;color:var(--ink-soft)">Les trois points de la soutenance vont au notebook
+      (de 4 à 6) et au poster (de 2 à 3) : sans oral, ce sont les deux seuls objets qui portent votre travail.</p>
+
+      <h3>Prix</h3>
+      <p>Prix du jury, prix du meilleur graphique, prix du public (vote Wooclap, sans voter pour son propre groupe).
+      Les prix sont remis le vendredi, aux groupes qui soutiennent en amphi.</p>
+    </div>
+  </section>
+
+  <!-- ===================================================== CARNET -->
+  <section id="carnet">
+    <div class="wrap">
+      <h2>Modèle de carnet de bord</h2>
+      <p class="lede">Copiez ce modèle dans un document partagé. Le chef de projet le tient à jour à chaque jalon.</p>
+<pre># Carnet de bord · Groupe __ · Thème : ______
+
+## 1. Le groupe
+| Nom | Spécialité | Rôle | Ce que j'ai fait |
+
+## 2. Préparation (avant le lancement)
+- Rôles attribués
+- Outils vérifiés : Colab, Canva
+- Créneaux de travail convenus
+
+## 3. Jalon 1 (données fusionnées)
+- Question retenue, en une phrase
+- Pourquoi celle-ci
+- Jeu de données : lien, producteur, unité d'observation, période
+- Seconde source et clé de fusion
+- Lignes avant / après fusion
+
+## 4. Décisions de nettoyage
+| Décision | Raison | Lignes avant | Lignes après |
+
+## 5. Graphiques produits (y compris ceux écartés)
+- Ce qu'il montre en une phrase
+- Pourquoi ce type de graphique
+- Gardé sur le poster ? Pourquoi ?
+
+## 6. Références consultées (2 ou 3)
+| Référence (lien) | Ce qu'on en retient |
+
+## 7. Journal IA (3 entrées minimum)
+| Moment | Outil | Demande | Gardé ou corrigé | Erreur repérée |
+Revue du poster par l'IA : 3 faiblesses signalées,
+ce qu'on a changé, ce qu'on a refusé et pourquoi.
+
+## 8. Jalon 2 (avant le dépôt)
+- Le notebook s'exécute de haut en bas : oui / non
+- Résultat principal en une phrase
+- Limite principale
+- Orateurs de la soutenance (groupes sur place)
+
+## 9. Bilan
+- Ce qui a bloqué, et comment on l'a résolu
+- Ce qu'on ferait autrement</pre>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Challenge Data · L3 Économie et Gestion · CY Cergy Paris Université · décembre 2026 ·
+    <a href="https://stefaniamarcassa.github.io/analyse_des_donnees/">site du cours</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
