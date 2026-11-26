@@ -131,6 +131,64 @@
   }
   .status-sub{margin:0;color:var(--ink-soft);font-size:0.95rem}
 
+  /* ---------- encart en avant ---------- */
+  .spotlight{
+    margin:1rem 0 0;
+    background:var(--cy-446);
+    color:var(--card);
+    padding:1.5rem 1.6rem;
+    display:grid;
+    gap:0.3rem 2rem;
+    grid-template-columns:1fr auto;
+    align-items:center;
+  }
+  .spotlight-eyebrow{
+    grid-column:1;
+    font-family:var(--mono);
+    font-size:0.68rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--cy-jaune);
+    margin:0;
+  }
+  .spotlight h2{
+    grid-column:1;
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:clamp(1.3rem,1.1rem + 0.9vw,1.75rem);
+    letter-spacing:-0.022em;
+    margin:0.15rem 0 0;
+    color:var(--card);
+  }
+  .spotlight p{
+    grid-column:1;
+    margin:0.5rem 0 0;
+    max-width:62ch;
+    font-size:0.97rem;
+    color:#D9DEDD;
+  }
+  .spotlight-cta{
+    grid-column:2;
+    grid-row:1 / span 3;
+    justify-self:end;
+    font-family:var(--mono);
+    font-size:0.8rem;
+    text-decoration:none;
+    white-space:nowrap;
+    padding:0.6rem 1.1rem;
+    background:var(--card);
+    color:var(--cy-446);
+    border:1px solid var(--card);
+    transition:background 0.14s ease,color 0.14s ease;
+  }
+  .spotlight-cta:hover{background:var(--cy-vert);border-color:var(--cy-vert);color:var(--card)}
+  .spotlight-cta:focus-visible{outline:2px solid var(--cy-jaune);outline-offset:3px}
+
+  @media (max-width:46rem){
+    .spotlight{grid-template-columns:1fr}
+    .spotlight-cta{grid-column:1;grid-row:auto;justify-self:start;margin-top:1rem}
+  }
+
   /* ---------- sections ---------- */
   section{padding:clamp(2.75rem,6vw,4.25rem) 0}
   section + section{border-top:1px solid var(--rule)}
@@ -366,6 +424,7 @@
     <p class="status-main" id="status-main">Chargement…</p>
     <p class="status-sub" id="status-sub"></p>
   </div>
+  <aside class="spotlight" id="spotlight" hidden></aside>
 </div>
 
 <main>
@@ -425,6 +484,23 @@ const COURSE = {
     { label: "Permanence", value: "Exclusivement sur rendez-vous" },
     { label: "Contact",    value: "stefania.marcassa@cyu.fr" }
   ]
+};
+
+/* -------------------------------------------------------------------------
+   1 bis. ENCART EN AVANT
+   Le bandeau sombre placé en haut de la page, pour ce qui ne doit pas se
+   chercher. Mettre `null` pour ne rien afficher. L'encart disparaît tout
+   seul le lendemain de `until`.
+   ------------------------------------------------------------------------- */
+const SPOTLIGHT = {
+  eyebrow: "1 ECTS · 30 novembre – 4 décembre",
+  title:   "Challenge Data 2026",
+  body:    "Deux jours de travail en groupe sur des données publiques réelles. " +
+           "Droit-Éco et Design : devoir à la maison, les 30 novembre et 1er décembre. " +
+           "Autres promotions : sur place, les 3 et 4 décembre, amphi Scelles. " +
+           "Programme, livrables et grille d'évaluation sur la page du Challenge.",
+  cta:     { label: "Ouvrir la page du Challenge", href: "etudiants.html" },
+  until:   "2026-12-04"
 };
 
 /* -------------------------------------------------------------------------
@@ -798,6 +874,27 @@ const PRACTICAL = [
     factsEl.appendChild(el("li", null,
       "<b>" + escapeHtml(f.label) + "</b>" + escapeHtml(f.value)));
   });
+
+  /* ---- encart en avant ---- */
+  const spotEl = document.getElementById("spotlight");
+  if (typeof SPOTLIGHT === "object" && SPOTLIGHT) {
+    const fin = SPOTLIGHT.until
+      ? new Date(SPOTLIGHT.until + "T23:59:59")
+      : null;
+    if (!fin || now <= fin) {
+      if (SPOTLIGHT.eyebrow) {
+        spotEl.appendChild(el("p", "spotlight-eyebrow", escapeHtml(SPOTLIGHT.eyebrow)));
+      }
+      spotEl.appendChild(el("h2", null, escapeHtml(SPOTLIGHT.title)));
+      if (SPOTLIGHT.body) spotEl.appendChild(el("p", null, escapeHtml(SPOTLIGHT.body)));
+      if (SPOTLIGHT.cta) {
+        const a = el("a", "spotlight-cta", escapeHtml(SPOTLIGHT.cta.label));
+        a.href = SPOTLIGHT.cta.href;
+        spotEl.appendChild(a);
+      }
+      spotEl.hidden = false;
+    }
+  }
 
   /* ---- où en est-on dans le semestre ? ---- */
   const weeks = SCHEDULE.map(w => ({ ...w, start: new Date(w.date + "T00:00") }));
