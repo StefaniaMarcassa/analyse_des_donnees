@@ -711,9 +711,10 @@ const TD_DOCS = [
   { numero: "TD 10", titre: "Révision",                        
          links: [
      { label: "énoncé", href: "td/td10-enonce.pdf" },
+     { label: "dossier documentaire", href: "td/td10-dossier.pdf" },
      { label: "données", href: REPO + "/blob/main/data/td10-loyers.csv" },
-     { label: "dictionnaire des variables", href: "data/td10-dossier.pdf" },
-     { label: "notebook corrigé", href: REPO + "td/td10-dossier-corrige.pdf" }
+     { label: "corrigé", href: "td/td10-corrige.pdf" },
+     { label: "notebook de vérification", href: REPO + "/blob/main/notebooks/td10-revision.ipynb" }
          ] 
   },
 ];
@@ -744,6 +745,12 @@ const PRACTICAL = [
       ou au matériel : si une personne est bloquée, plusieurs le sont en général, et la réponse
       reste là où chacun peut la retrouver. Indiquez toujours le message d'erreur complet.
       Écrivez-moi directement pour tout ce qui est personnel — absence, délai, note.`
+  },
+  {
+    heading: "Challenge Data",
+    body: `Deux jours de travail en groupe sur données publiques, pour 1 ECTS, fin novembre
+      et début décembre. Programme, livrables, grille d'évaluation et modèle de carnet de bord
+      sur <a href="etudiants.html">la page du Challenge</a>.`
   },
   {
     heading: "Évaluation",
@@ -904,7 +911,8 @@ const PRACTICAL = [
   if (prochaineEpreuve && currentIndex > -1 && !weeks[currentIndex].exam) {
     const d = daysBetween(now, prochaineEpreuve.start);
     if (d > 0 && d <= 21) {
-      subEl.textContent = "Contrôle continu dans " + d + " jours";
+      subEl.textContent = prochaineEpreuve.topic +
+        (d === 1 ? " demain" : " dans " + d + " jours");
     }
   }
 
